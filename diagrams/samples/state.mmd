@@ -1,0 +1,7 @@
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Review: レビュー依頼
+  Review --> Draft: 修正あり
+  Review --> Approved: 承認
+  Approved --> Published: 公開
+  Published --> [*]

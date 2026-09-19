@@ -1,0 +1,26 @@
+{
+  "name": "forsteri-slidev-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.18.0 || >=24.11.0"
+  },
+  "scripts": {
+    "brand:sync": "node scripts/sync-brand.mjs",
+    "brand:check": "node scripts/sync-brand.mjs --check",
+    "dev": "slidev examples/showcase.md --open",
+    "build": "npm run brand:check && slidev build examples/showcase.md --out ../dist/showcase",
+    "build:patterns": "npm run brand:check && node scripts/build-patterns.mjs",
+    "export": "npm run brand:check && node scripts/export-showcase.mjs",
+    "check": "node scripts/check-structure.mjs && npm run build && npm run build:patterns"
+  },
+  "devDependencies": {
+    "@slidev/cli": "52.19.1",
+    "mermaid": "11.17.2",
+    "playwright-chromium": "1.62.1"
+  },
+  "overrides": {
+    "dompurify": "3.4.14"
+  }
+}

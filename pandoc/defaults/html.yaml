@@ -1,0 +1,15 @@
+from: markdown+yaml_metadata_block+fenced_divs+link_attributes+pipe_tables+footnotes+definition_lists
+standalone: true
+template: templates/document.html
+css:
+  - styles/document.css
+embed-resources: true
+toc: true
+toc-depth: 3
+number-sections: true
+shift-heading-level-by: 1
+section-divs: true
+highlight-style: tango
+metadata:
+  lang: ja
+  toc-title: 目次

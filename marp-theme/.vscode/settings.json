@@ -1,0 +1,7 @@
+{
+  "markdown.marp.diagnostics.slideContentOverflow": true,
+  "markdown.marp.html": "default",
+  "markdown.marp.themes": [
+    "./themes/forsteri/forsteri.css"
+  ]
+}

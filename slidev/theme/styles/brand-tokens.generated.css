@@ -1,0 +1,38 @@
+/* Marp テーマ forsteri.css の共有トークンブロックから生成。 */
+/* slidev/ で npm run brand:sync を実行して更新する。直接編集しないこと。 */
+:root {
+/* 基本色 */
+  --forsteri-primary: #0f766e;
+  --forsteri-primary-strong: #115e59;
+  --forsteri-primary-soft: #f0fdfa;
+  --forsteri-ink: #111827;
+  --forsteri-gray: #9ca3af;
+  --forsteri-gray-700: #4b5563;
+  --forsteri-gray-300: #d1d5db;
+  --forsteri-gray-100: #f3f4f6;
+  --forsteri-white: #ffffff;
+
+  /* 系列色。グラフ・表組・図解の色分け専用。黒文字が載る明度で揃えている。 */
+  --forsteri-series-1: #5eead4;
+  --forsteri-series-2: #fcd34d;
+  --forsteri-series-3: #a5b4fc;
+  --forsteri-series-4: #f9a8d4;
+  --forsteri-series-5: #bef264;
+  --forsteri-series-6: #7dd3fc;
+  --forsteri-series-7: #d6d3d1;
+  --forsteri-series-8: #94a3b8;
+
+  /* 勉強会・カジュアル資料向けのダークパレット（オプトイン）。 */
+  --forsteri-night: #0b1a1f;
+  --forsteri-night-deep: #050d10;
+  --forsteri-night-surface: #12262c;
+  --forsteri-night-text: #f5f9f9;
+  --forsteri-night-muted: #9fb4b8;
+  --forsteri-night-line: rgb(255 255 255 / 16%);
+  --forsteri-night-accent: #5eead4;
+
+  --forsteri-font-ja: "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+  --forsteri-font-en: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --forsteri-font-mono: "JetBrains Mono", Menlo, "SFMono-Regular", Consolas, monospace;
+}

@@ -1,0 +1,10 @@
+sequenceDiagram
+  autonumber
+  actor User as 利用者
+  participant Docs as 文書サイト
+  participant Search as 検索
+  User->>Docs: キーワードを入力
+  Docs->>Search: 検索を実行
+  Search-->>Docs: 候補を返す
+  Docs-->>User: 結果を表示
+  Note over User,Docs: 同じ原本を各形式で確認

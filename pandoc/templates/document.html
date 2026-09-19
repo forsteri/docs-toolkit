@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="$if(lang)$$lang$$else$ja$endif$">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="pandoc">
+  <link rel="icon" href="data:,">
+$for(author-meta)$
+  <meta name="author" content="$author-meta$">
+$endfor$
+$if(date-meta)$
+  <meta name="date" content="$date-meta$">
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+$for(css)$
+  <link rel="stylesheet" href="$css$">
+$endfor$
+$if(highlighting-css)$
+  <style>
+$highlighting-css$
+  </style>
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-title" href="#document-top">Technical Documentation</a>
+      <span class="site-context">$if(doc_type)$$doc_type$$else$Document$endif$</span>
+    </div>
+  </header>
+
+  <div class="doc-layout" id="document-top">
+$if(toc)$
+    <aside class="doc-sidebar" aria-label="文書内ナビゲーション">
+      <nav id="$idprefix$TOC" class="doc-toc" role="doc-toc">
+        <div class="doc-toc__title">$if(toc-title)$$toc-title$$else$On this page$endif$</div>
+        $table-of-contents$
+      </nav>
+    </aside>
+$endif$
+
+    <article class="doc-content">
+      <header class="doc-header">
+        <div class="doc-eyebrow">
+          <span class="doc-type">$if(doc_type)$$doc_type$$else$Document$endif$</span>
+$if(status)$
+          <span class="doc-status">$status$</span>
+$endif$
+        </div>
+
+        <h1 class="doc-title">$title$</h1>
+$if(subtitle)$
+        <p class="doc-subtitle">$subtitle$</p>
+$endif$
+
+        <dl class="doc-meta" aria-label="文書情報">
+$if(doc_id)$
+          <div>
+            <dt>Doc ID</dt>
+            <dd>$doc_id$</dd>
+          </div>
+$endif$
+$if(version)$
+          <div>
+            <dt>Version</dt>
+            <dd>$version$</dd>
+          </div>
+$endif$
+$if(updated)$
+          <div>
+            <dt>Updated</dt>
+            <dd>$updated$</dd>
+          </div>
+$elseif(date)$
+          <div>
+            <dt>Date</dt>
+            <dd>$date$</dd>
+          </div>
+$endif$
+$if(author)$
+          <div>
+            <dt>Author</dt>
+            <dd>$for(author)$$author$$sep$, $endfor$</dd>
+          </div>
+$endif$
+$if(classification)$
+          <div>
+            <dt>Classification</dt>
+            <dd>$classification$</dd>
+          </div>
+$endif$
+        </dl>
+      </header>
+
+      <main class="doc-body">
+$for(include-before)$
+        $include-before$
+$endfor$
+        $body$
+$for(include-after)$
+        $include-after$
+$endfor$
+      </main>
+
+      <footer class="doc-footer">
+        <div>
+          <strong>$if(doc_type)$$doc_type$$else$Document$endif$</strong>
+$if(doc_id)$
+          <span>$doc_id$</span>
+$endif$
+$if(version)$
+          <span>v$version$</span>
+$endif$
+        </div>
+        <div>
+$if(classification)$
+          <span>$classification$</span>
+$endif$
+$if(updated)$
+          <span>Updated: $updated$</span>
+$endif$
+        </div>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>

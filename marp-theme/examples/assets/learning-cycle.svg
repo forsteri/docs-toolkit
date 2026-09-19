@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540" role="img" aria-labelledby="title desc">
+  <title id="title">学びのサイクルの3ステップ</title>
+  <desc id="desc">試す、振り返る、共有するの3工程が循環する概念図</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="720" height="540" rx="24" fill="#f3f4f6"/>
+  <circle cx="360" cy="270" r="86" fill="#0f766e"/>
+  <text x="360" y="257" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">CYCLE</text>
+  <text x="360" y="294" text-anchor="middle" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="24" fill="#fff">学びをつなぐ</text>
+  <path d="M 215 142 C 315 55 462 74 518 166" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M 544 227 C 601 352 522 452 411 467" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M 310 464 C 181 444 124 326 177 224" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g font-family="Hiragino Sans, Noto Sans JP, sans-serif" text-anchor="middle">
+    <circle cx="175" cy="175" r="72" fill="#fff" stroke="#0f766e" stroke-width="5"/>
+    <text x="175" y="167" font-size="25" font-weight="700" fill="#111827">試す</text>
+    <text x="175" y="201" font-size="17" fill="#4b5563">Try</text>
+    <circle cx="548" cy="190" r="72" fill="#fff" stroke="#0f766e" stroke-width="5"/>
+    <text x="548" y="182" font-size="25" font-weight="700" fill="#111827">振り返る</text>
+    <text x="548" y="216" font-size="17" fill="#4b5563">Reflect</text>
+    <circle cx="360" cy="441" r="72" fill="#fff" stroke="#0f766e" stroke-width="5"/>
+    <text x="360" y="433" font-size="25" font-weight="700" fill="#111827">共有する</text>
+    <text x="360" y="467" font-size="17" fill="#4b5563">Share</text>
+  </g>
+</svg>

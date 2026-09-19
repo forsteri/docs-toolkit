@@ -1,0 +1,19 @@
+{
+  "name": "slidev-theme-forsteri",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "engines": {
+    "slidev": ">=52.19.1"
+  },
+  "slidev": {
+    "colorSchema": "both",
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 1280
+    }
+  }
+}

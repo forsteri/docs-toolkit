@@ -1,0 +1,428 @@
+/* スマートアート共通スタイル。系列色は各コンポーネントが --smart-color / --smart-foreground で渡す。 */
+.smart-art {
+  width: 100%;
+  color: var(--forsteri-ink);
+  font-family: var(--forsteri-font-ja);
+}
+
+.smart-art small {
+  display: block;
+  color: var(--forsteri-gray-700);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.smart-process {
+  display: flex;
+  min-height: 310px;
+  align-items: stretch;
+  margin-top: 54px;
+}
+
+.smart-process-step {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  padding: 70px 26px 30px;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 8px solid var(--smart-color);
+  background: color-mix(in srgb, var(--smart-color) 12%, white);
+}
+
+.smart-process-step + .smart-process-step {
+  margin-left: 30px;
+}
+
+.smart-process-step + .smart-process-step::before {
+  position: absolute;
+  top: 50%;
+  left: -25px;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 18px solid var(--forsteri-gray-300);
+  content: "";
+}
+
+.smart-process-step .smart-index {
+  position: absolute;
+  top: 20px;
+  left: 26px;
+  color: var(--smart-color);
+  font-family: var(--forsteri-font-en);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.smart-process-step strong {
+  color: var(--forsteri-ink);
+  font-size: 24px;
+  line-height: 1.3;
+}
+
+.smart-process-step small {
+  margin-top: 12px;
+}
+
+.smart-cycle {
+  position: relative;
+  height: 470px;
+  margin-top: 4px;
+}
+
+.smart-cycle-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 330px;
+  height: 330px;
+  transform: translate(-50%, -50%);
+  border: 34px solid var(--forsteri-primary-soft);
+  border-right-color: var(--forsteri-series-1);
+  border-radius: 50%;
+}
+
+.smart-cycle-ring::after {
+  position: absolute;
+  top: -43px;
+  right: 12px;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid var(--forsteri-series-1);
+  content: "";
+}
+
+.smart-cycle-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  color: var(--forsteri-primary);
+  font-size: 27px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.smart-cycle-item {
+  position: absolute;
+  top: calc(50% - 55px);
+  left: calc(50% - 90px);
+  display: flex;
+  width: 180px;
+  height: 110px;
+  transform: rotate(var(--cycle-angle)) translateX(200px)
+    rotate(calc(-1 * var(--cycle-angle)));
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 6px solid var(--smart-color);
+  background: var(--forsteri-white);
+  box-shadow: 0 8px 24px rgb(17 17 17 / 12%);
+  text-align: center;
+}
+
+.smart-cycle-item strong {
+  color: var(--forsteri-ink);
+  font-size: 21px;
+}
+
+.smart-cycle-item small {
+  margin-top: 5px;
+}
+
+.smart-pyramid {
+  display: flex;
+  height: 460px;
+  padding-top: 22px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.smart-pyramid-level {
+  display: flex;
+  min-height: 76px;
+  padding: 12px 70px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+  background: var(--smart-color);
+  text-align: center;
+}
+
+.smart-pyramid-level strong {
+  color: var(--smart-foreground);
+  font-size: 22px;
+}
+
+.smart-pyramid-level small {
+  color: var(--smart-foreground);
+  opacity: 0.78;
+}
+
+.smart-matrix {
+  position: relative;
+  width: 840px;
+  margin: 18px auto 0;
+  padding: 0 0 44px 55px;
+}
+
+.smart-matrix-grid {
+  display: grid;
+  height: 420px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+}
+
+.smart-matrix-cell {
+  display: flex;
+  padding: 28px 34px;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 9px solid var(--smart-color);
+  background: color-mix(in srgb, var(--smart-color) 15%, white);
+}
+
+.smart-matrix-cell strong {
+  color: var(--forsteri-ink);
+  font-size: 24px;
+}
+
+.smart-matrix-cell small {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.smart-matrix-x,
+.smart-matrix-y {
+  position: absolute;
+  color: var(--forsteri-gray-700);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.smart-matrix-x {
+  right: 0;
+  bottom: 8px;
+  left: 55px;
+  text-align: center;
+}
+
+.smart-matrix-y {
+  top: 0;
+  bottom: 44px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.smart-funnel {
+  display: flex;
+  height: 460px;
+  padding-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.smart-funnel-stage {
+  display: flex;
+  min-height: 74px;
+  padding: 0 100px;
+  align-items: center;
+  justify-content: space-between;
+  clip-path: polygon(4% 0, 96% 0, 90% 100%, 10% 100%);
+  background: var(--smart-color);
+}
+
+.smart-funnel-stage strong {
+  color: var(--smart-foreground);
+  font-size: 22px;
+}
+
+.smart-funnel-stage span {
+  color: var(--smart-foreground);
+  font-family: var(--forsteri-font-en);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.smart-kpis {
+  display: grid;
+  min-height: 390px;
+  margin-top: 38px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.smart-kpis.count-2,
+.smart-kpis.count-4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.smart-kpi {
+  display: flex;
+  min-width: 0;
+  padding: 28px 30px;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 8px solid var(--smart-color);
+  background: var(--forsteri-gray-100);
+}
+
+.smart-kpi-label {
+  color: var(--forsteri-gray-700);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.smart-kpi-value {
+  margin: 14px 0 10px;
+  color: var(--forsteri-primary);
+  font-family: var(--forsteri-font-en);
+  font-size: 61px;
+  line-height: 1;
+}
+
+.smart-kpi-delta {
+  color: var(--forsteri-ink);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.smart-kpi small {
+  margin-top: 8px;
+}
+
+.smart-roadmap {
+  margin-top: 36px;
+  border-top: 1px solid var(--forsteri-gray-300);
+  border-left: 1px solid var(--forsteri-gray-300);
+}
+
+.smart-roadmap-row {
+  display: grid;
+  min-height: 88px;
+  grid-template-columns: 160px repeat(4, minmax(0, 1fr));
+}
+
+.smart-roadmap-row > * {
+  min-width: 0;
+  padding: 12px;
+  border-right: 1px solid var(--forsteri-gray-300);
+  border-bottom: 1px solid var(--forsteri-gray-300);
+}
+
+.smart-roadmap-header {
+  min-height: 48px;
+  background: var(--forsteri-gray-100);
+  color: var(--forsteri-gray-700);
+  font-family: var(--forsteri-font-en);
+  text-align: center;
+}
+
+.smart-roadmap-lane {
+  display: flex;
+  align-items: center;
+  background: var(--forsteri-primary-soft);
+  color: var(--forsteri-ink);
+  font-size: 18px;
+}
+
+.smart-roadmap-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.smart-roadmap-item {
+  display: block;
+  padding: 7px 9px;
+  border-left: 6px solid var(--smart-color);
+  background: color-mix(in srgb, var(--smart-color) 14%, white);
+  color: var(--forsteri-ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.smart-comparison {
+  display: grid;
+  min-height: 405px;
+  margin-top: 36px;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+}
+
+.smart-comparison-side {
+  padding: 30px 36px;
+  border: 1px solid var(--forsteri-gray-300);
+  border-top: 9px solid var(--smart-color);
+  background: var(--forsteri-white);
+}
+
+.smart-comparison-side h3 {
+  margin: 0 0 17px;
+  color: var(--forsteri-ink);
+  font-size: 29px;
+}
+
+.smart-comparison-side p {
+  color: var(--forsteri-gray-700);
+  font-size: 19px;
+}
+
+.smart-comparison-side li {
+  margin: 9px 0;
+  font-size: 20px;
+}
+
+.forsteri-layout.is-dark .smart-art {
+  color: var(--forsteri-night-text);
+}
+
+.forsteri-layout.is-dark .smart-art small,
+.forsteri-layout.is-dark .smart-matrix-x,
+.forsteri-layout.is-dark .smart-matrix-y {
+  color: var(--forsteri-night-muted);
+}
+
+.forsteri-layout.is-dark .smart-kpi-label {
+  color: var(--forsteri-night-muted);
+}
+
+.forsteri-layout.is-dark .smart-kpi-delta {
+  color: var(--forsteri-night-text);
+}
+
+.forsteri-layout.is-dark .smart-process-step,
+.forsteri-layout.is-dark .smart-cycle-item,
+.forsteri-layout.is-dark .smart-matrix-cell,
+.forsteri-layout.is-dark .smart-kpi,
+.forsteri-layout.is-dark .smart-comparison-side {
+  background: color-mix(in srgb, var(--smart-color) 11%, var(--forsteri-night));
+}
+
+.forsteri-layout.is-dark .smart-art strong,
+.forsteri-layout.is-dark .smart-art h3,
+.forsteri-layout.is-dark .smart-art li,
+.forsteri-layout.is-dark .smart-roadmap-item,
+.forsteri-layout.is-dark .smart-roadmap-lane {
+  color: var(--forsteri-night-text);
+}

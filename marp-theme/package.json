@@ -1,0 +1,12 @@
+{
+  "name": "forsteri-marp-theme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check-theme.mjs"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "4.5.0"
+  }
+}

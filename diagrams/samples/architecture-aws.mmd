@@ -1,0 +1,13 @@
+architecture-beta
+  group edge(aws:service-networking-content-delivery-amazon-cloud-front)[エッジ]
+  group app(aws:service-networking-content-delivery-amazon-api-gateway)[アプリケーション]
+  group data(aws:service-storage-amazon-simple-storage-service)[データ]
+
+  service cdn(aws:service-networking-content-delivery-amazon-cloud-front)[CloudFront] in edge
+  service api(aws:service-networking-content-delivery-amazon-api-gateway)[API Gateway] in app
+  service fn(aws:service-compute-aws-lambda)[Lambda] in app
+  service bucket(aws:resource-storage-amazon-simple-storage-service-s3-standard)[S3] in data
+
+  cdn:R --> L:api
+  api:R --> L:fn
+  fn:R --> L:bucket

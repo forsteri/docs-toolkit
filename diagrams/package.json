@@ -1,0 +1,19 @@
+{
+  "name": "docs-toolkit-diagrams",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "npm run build:themes && npm run build:aws",
+    "build:themes": "node scripts/build-themes.mjs",
+    "build:aws": "node scripts/build-aws-pack.mjs",
+    "render": "node scripts/render.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "11.16.0"
+  }
+}

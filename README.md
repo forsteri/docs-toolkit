@@ -1,0 +1,60 @@
+# docs-toolkit — 個人用ドキュメントツールキット
+
+**v0.1.0**
+
+技術文書とプレゼンテーションの書き方・見せ方・作り方をまとめた個人用のツールキットです。文書本文はMarkdownを原本とし、用途に応じて5つの形式（4つの出力形式＋図解基盤）を使い分けます。
+
+利用ガイドはDocusaurusサイトに統合しています。
+
+```bash
+cd docusaurus && npm install && npm start
+```
+
+| Format | Purpose | Visual policy | Status |
+| --- | --- | --- | --- |
+| Pandoc | 単体HTML / PDFとして配布する技術文書 | ニュートラル。AWSドキュメントを参考にした簡潔な情報設計。主色はティール | Active |
+| Docusaurus | 検索・ナビゲーション付きの継続更新ドキュメント（利用ガイドを含む） | ニュートラル。Pandocと共通の読み味。主色はティール | Active |
+| Marp | プレゼンテーション（PDF・人手/Agent両用） | `forsteri`テーマ | Active |
+| Slidev | プレゼンテーション / 静的SPA（Agent前提） | `forsteri`テーマ（Marpと同じトークン） | Active |
+| Diagrams | Mermaid原本から全形式へ同じ見た目の図を出す共通基盤 | `neutral` / `forsteri`の2テーマ | Active |
+
+## 基本方針
+
+- ブランド表現（見出し帯・章扉・系列色などのスライド向けデザイン）はMarp / Slidevの`forsteri`テーマで行います。文書系（Pandoc / Docusaurus）はニュートラルな情報設計ですが、主色は共通のティール `#0f766e` に揃え、ひとつのツールキットに見えるようにします。
+- 共有トークン（色・フォント）はMarpの`marp-theme/themes/forsteri/forsteri.css`が単一ソースです。Slidevテーマは`npm run brand:sync`、図解基盤の`forsteri`テーマは`npm run build:themes`でそこから生成します。
+- 装飾画像は使いません。線・面・主色だけのシンプルなデザインです。
+- PandocとDocusaurusは、強い見出し階層、左ナビゲーション、ティールのリンク、控えめな罫線、読みやすいコードと注記を共通要素とします。
+- 文書本文はMarkdownを原本とし、内容と出力スタイルを分離します。書き手は色やレイアウトを選びません。
+- 文書・コードコメントは日本語で統一します。
+
+## ディレクトリ
+
+- `docusaurus/`: 継続更新するドキュメントサイト（ツールキット利用ガイド・執筆規約・文書テンプレートを含む）
+- `pandoc/`: 単体HTML / PDF向けテンプレートとbashビルドスクリプト
+- `marp-theme/`: `forsteri` Marpテーマ（共有トークンの単一ソース）
+- `slidev/`: `forsteri` Slidevテーマ、スマートアートコンポーネント、用途別パターン
+- `diagrams/`: Mermaid図解基盤（`neutral` / `forsteri`テーマ・レンダラ・AWS公式アイコン）
+- `Issues/`: 開発経緯と判断の記録
+- `CHANGELOG.md`: バージョンごとの変更履歴
+
+## 検査コマンド
+
+各ディレクトリで変更したら、対応する検査を通します。
+
+| ディレクトリ | コマンド | 備考 |
+| --- | --- | --- |
+| `marp-theme/` | `npm run check` | 単一CSS（`forsteri.css`）と共有トークンの検証 |
+| `slidev/` | `npm run brand:sync && npm run check` | Node 24.19.0（`.node-version`）。`check`はビルドとパターン集ビルドを含む |
+| `diagrams/` | `npm run build:themes && npm run check` | `neutral`はDocusaurusのCSS、`forsteri`はMarpトークンと照合。Chromeは`/Applications/Google Chrome.app`を自動検出 |
+| `docusaurus/` | `npm run build` | `onBrokenLinks: 'throw'`。初回コミット前は`git log`が無いため最終更新日の取得で失敗する（コミット後は不要） |
+| `pandoc/` | `pandoc --defaults defaults/html.yaml samples/design-doc.md -o build/design-doc.html` | PDFは`scripts/build-pdf.sh samples/design-doc.md`（Google Chromeのヘッドレス印刷） |
+
+## 必要環境
+
+- macOS（zsh）。スクリプトはbashで書かれています
+- Node.js 20以上（Slidevのみ24.19.0）とnpm
+- Pandoc 3.x、Google Chrome（PDF化・図のレンダリング）
+
+## 経緯
+
+会社用ドキュメントツールキット v0.9.0 を土台に、個人用として再構成したものです（[Issue-0001](Issues/0001-personal-toolkit-bootstrap.md)）。バージョンはv0.1.0から再スタートし、`CHANGELOG.md`で管理します。

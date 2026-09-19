@@ -1,0 +1,14 @@
+flowchart LR
+  source[Markdown原本] --> review{レビュー済み?}
+  review -->|はい| publish[4形式へ公開]
+  review -->|いいえ| revise[原本を修正]
+  revise --> review
+  outside[外部システム] --> source
+  legacy[旧フロー] -. 移行後に廃止 .-> publish
+
+  classDef emphasis stroke-width:3px,font-weight:700
+  classDef external stroke-dasharray:6 4
+  classDef deprecated opacity:0.55,stroke-dasharray:3 3
+  class publish emphasis
+  class outside external
+  class legacy deprecated
