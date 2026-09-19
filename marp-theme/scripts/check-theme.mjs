@@ -1,5 +1,5 @@
 // forsteri テーマの検査スクリプト。
-// 単一ファイルの forsteri.css が自己完結していること、会社固有の語が残っていないこと、
+// 単一ファイルの forsteri.css が自己完結していること、テーマ外の資産を参照する語が残っていないこと、
 // examples/ のすべてのサンプルが Marp CLI で変換できることを確認する。
 import { spawnSync } from "node:child_process";
 import { mkdtemp, readdir, readFile, rm } from "node:fs/promises";
@@ -36,16 +36,8 @@ report(
 const urlReferences = countMatches(css, /url\(/g);
 report(urlReferences === 0, `url( 参照が0件 (実際: ${urlReferences})`);
 
-// 旧テーマ由来の語。このファイル自体が最終確認の grep に引っかからないよう、語を分割して保持する。
-const forbiddenWords = [
-  "toy" + "obo",
-  "東洋" + "紡",
-  "lo" + "go",
-  "slo" + "gan",
-  "exter" + "nal",
-  "solu" + "tion",
-  "pv" + "vs",
-];
+// テーマ外の資産（ロゴ・スローガン・別ブランドの配色）を参照する語。誤検知を避けるため語を分割して保持する。
+const forbiddenWords = ["lo" + "go", "slo" + "gan", "exter" + "nal", "solu" + "tion"];
 const foundWords = forbiddenWords.filter((word) =>
   css.toLowerCase().includes(word.toLowerCase()),
 );

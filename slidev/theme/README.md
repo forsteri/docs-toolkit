@@ -1,6 +1,6 @@
 # slidev-theme-forsteri
 
-個人用ドキュメントツールキット（docs-toolkit）のローカルSlidevテーマです。主色ティール（`--forsteri-primary`）のフラット面と直線だけで構成し、画像資産を持ちません。色・フォントは`../marp-theme/themes/forsteri/forsteri.css`の共有トークンを`npm run brand:sync`で複写して使います。
+ドキュメントツールキット（docs-toolkit）のローカルSlidevテーマです。主色ティール（`--forsteri-primary`）のフラット面と直線だけで構成し、画像資産を持ちません。色・フォントは`../marp-theme/themes/forsteri/forsteri.css`の共有トークンを`npm run brand:sync`で複写して使います。
 
 ## レイアウト
 

@@ -1,0 +1,56 @@
+# Docusaurus サイト（docusaurus/）を GitHub Pages へ公開する。
+# リポジトリ設定 > Pages > Source を「GitHub Actions」にしておく。
+name: Deploy Docusaurus to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docusaurus/**"
+      - "diagrams/themes/**"
+      - "diagrams/assets/aws/**"
+      - "diagrams/samples/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # showLastUpdateTime が git log を使うため全履歴を取得する
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: docusaurus/package-lock.json
+      - name: Install
+        run: npm ci
+        working-directory: docusaurus
+      - name: Build
+        run: npm run build
+        working-directory: docusaurus
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docusaurus/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

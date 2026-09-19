@@ -12,7 +12,7 @@ footer: docs-toolkit / Marp Theme
 
 ## forsteri Marp Theme
 
-個人用ドキュメントツールキットのスライドテンプレート
+ドキュメントツールキットのスライドテンプレート
 
 ---
 

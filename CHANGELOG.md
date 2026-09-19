@@ -1,40 +1,37 @@
 # Changelog
 
-docs-toolkit（個人用ドキュメントツールキット）の変更履歴です。詳細な経緯と判断は`Issues/`の各記録を参照してください。
+docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ## [0.1.0] - 2026-09-12
 
-会社用ドキュメントツールキット v0.9.0 を土台に、個人用として再構成した最初の版（[Issue-0001](Issues/0001-personal-toolkit-bootstrap.md)）。5形式（Pandoc / Docusaurus / Marp / Slidev / Diagrams）のテーマ・図解基盤・執筆規約・利用ガイドを収録。
+最初の版。5形式（Pandoc / Docusaurus / Marp / Slidev / Diagrams）のテーマ・図解基盤・執筆規約・利用ガイドを収録。
 
 ### 全体
 
-- テーマ名・トークン接頭辞を`forsteri`（`@theme forsteri`、`--forsteri-*`）へ変更。会社名・部署名・社内ホストなど会社固有の記述をすべて撤去。
-- ロゴ（コーポレート / コミュニケーション）、ブランドスローガン、シグネチャ画像、画像埋め込み（Data URI）の仕組みを撤去。線・面・主色だけのシンプルなデザインに統一。
-- ソリューションカラー（事業領域別の配色）と社内/社外の区分（`external`クラス・frontmatter）を廃止。事業領域固有の色は系列色`--forsteri-series-1..8`へ置き換え。
-- 配色をティール系（主色`#0f766e`）へ変更。スライド系は`forsteri`テーマ、文書系（Pandoc / Docusaurus / diagrams `neutral`）はニュートラルな情報設計のまま、リンク・主色・注記をティールに揃えた。
-- バージョンをv0.1.0から再スタート。CHANGELOG / README / Issuesを個人用として書き直し。
+- 主色ティール（`#0f766e`）の`forsteri`テーマ。ロゴや装飾画像を持たず、線・面・主色だけで構成する。
+- 色・フォントの共有トークンは`marp-theme/themes/forsteri/forsteri.css`の`@forsteri-shared-tokens`ブロックを単一ソースとし、Slidevテーマと図解基盤の`forsteri`テーマはそこから生成する。
+- 文書系（Pandoc / Docusaurus / diagrams `neutral`）はニュートラルな情報設計のまま、リンク・主色・注記をティールに揃える。
 
 ### Marpテーマ
 
-- 保守CSS→配布CSSの2段構成を`forsteri.css`の単一ファイルへ統合（ビルドスクリプト不要）。共有トークンブロック`@forsteri-shared-tokens`が全形式の単一ソース。
-- `slogan`クラスを削除。`ending`は見出し・本文をそのまま中央配置するシンプルな終端に変更。
+- 16:9の単一CSS（`forsteri.css`）。タイトル・章扉・本文・終端に加え、`statement` / `metric` / `decision` / `timeline` / `figure-*`の実務レイアウトと、オプトイン式の`dark`を収録。
+- `npm run check`でテーマの自己完結性とサンプルの変換を検証。
 
 ### Slidevテーマ
 
-- レイアウトから`slogan`を削除、frontmatterの`external`を削除。
-- スマートアート8コンポーネント（Process / Cycle / Pyramid / Matrix2x2 / Funnel / KpiCards / Roadmap / Comparison）のpropsから`palette` / `solution`を削除し、系列色を自動割当に一本化。
+- ローカルテーマ（`cover` / `section` / `default` / `statement` / `metric` / `ending`）と、系列色を自動割当するスマートアート8コンポーネント（Process / Cycle / Pyramid / Matrix2x2 / Funnel / KpiCards / Roadmap / Comparison）。
+- 提案・進捗報告・意思決定・キックオフ・振り返りのパターン集と、SPA / PDF出力。
 
 ### 図解基盤
 
-- テーマを`neutral`（Docusaurus / Pandoc）と`forsteri`（Marp / Slidev）の2種に整理。`neutral`の主色をティールへ変更。
-- Docusaurusの`style-check`ページとの同期マーカーを`diagrams:<name>`へ改名。
+- Mermaid原本から4形式へ同じ見た目の図を出す共通基盤。テーマは`neutral`（Docusaurus / Pandoc）と`forsteri`（Marp / Slidev）。
+- AWS Architecture Icons 2026 Q3のIconifyパック化と、Docusaurus / Slidev / mermaid-cliへの登録。
 
 ### Pandoc
 
-- PowerShellスクリプトを廃止し、bash版`scripts/build-html.sh` / `scripts/build-pdf.sh`（Google Chromeヘッドレス印刷、`CHROME_PATH`で上書き可）へ置き換え。
-- `document.css`のリンク・注記色をティールへ変更。サンプルの会社固有語を中立化。
+- 単体HTML / PDF向けテンプレートと、bashスクリプト（`scripts/build-html.sh` / `scripts/build-pdf.sh`。PDFはGoogle Chromeのヘッドレス印刷）。
 
 ### Docusaurus
 
-- サイト名・navbarを`docs-toolkit`、公開先をGitHub Pages（`https://forsteri.github.io/docs-toolkit/`）想定に変更。
-- `custom.css`の主色トークンをティール系（ライト / ダーク）へ変更。利用ガイド・執筆規約・テンプレートから会社文脈とPowerShell手順を除去。
+- 利用ガイド・執筆規約・文書テンプレート（設計書 / 手順書 / 判断記録 / ランブック）を収録したdocs-onlyサイト。UDフォント、日本語ローカル検索、Mermaid、カスタム注記、DocMeta。
+- GitHub Pages（`https://forsteri.github.io/docs-toolkit/`）へ公開する前提の設定。

@@ -18,7 +18,7 @@
     {
       "name": "repo-static-files",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3300", "--bind", "127.0.0.1", "--directory", "/Users/forsteri/work/Projects/docs-toolkit"],
+      "runtimeArgs": ["-m", "http.server", "3300", "--bind", "127.0.0.1", "--directory", "."],
       "port": 3300
     }
   ]

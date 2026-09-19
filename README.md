@@ -1,8 +1,8 @@
-# docs-toolkit — 個人用ドキュメントツールキット
+# docs-toolkit — ドキュメントツールキット
 
 **v0.1.0**
 
-技術文書とプレゼンテーションの書き方・見せ方・作り方をまとめた個人用のツールキットです。文書本文はMarkdownを原本とし、用途に応じて5つの形式（4つの出力形式＋図解基盤）を使い分けます。
+技術文書とプレゼンテーションの書き方・見せ方・作り方をまとめたツールキットです。文書本文はMarkdownを原本とし、用途に応じて5つの形式（4つの出力形式＋図解基盤）を使い分けます。
 
 利用ガイドはDocusaurusサイトに統合しています。
 
@@ -34,7 +34,6 @@ cd docusaurus && npm install && npm start
 - `marp-theme/`: `forsteri` Marpテーマ（共有トークンの単一ソース）
 - `slidev/`: `forsteri` Slidevテーマ、スマートアートコンポーネント、用途別パターン
 - `diagrams/`: Mermaid図解基盤（`neutral` / `forsteri`テーマ・レンダラ・AWS公式アイコン）
-- `Issues/`: 開発経緯と判断の記録
 - `CHANGELOG.md`: バージョンごとの変更履歴
 
 ## 検査コマンド
@@ -55,6 +54,6 @@ cd docusaurus && npm install && npm start
 - Node.js 20以上（Slidevのみ24.19.0）とnpm
 - Pandoc 3.x、Google Chrome（PDF化・図のレンダリング）
 
-## 経緯
+## ライセンス
 
-会社用ドキュメントツールキット v0.9.0 を土台に、個人用として再構成したものです（[Issue-0001](Issues/0001-personal-toolkit-bootstrap.md)）。バージョンはv0.1.0から再スタートし、`CHANGELOG.md`で管理します。
+[MIT License](LICENSE)です。`diagrams/assets/aws/`のAWS Architecture IconsはAWSが配布するアセットで、利用条件は[配布元](https://aws.amazon.com/architecture/icons/)に従います（詳細は`diagrams/assets/aws/2026-q3/SOURCE.md`）。

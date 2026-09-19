@@ -1,6 +1,6 @@
 # forsteri Slidev Theme and Patterns
 
-個人用ドキュメントツールキット（docs-toolkit）のローカルSlidevテーマ、データ駆動の図解コンポーネント、プレゼンのパターン集です。AgentがMarkdownとJSON形式のpropsを生成し、人は内容の確認と微修正に集中する運用を想定しています。
+ドキュメントツールキット（docs-toolkit）のローカルSlidevテーマ、データ駆動の図解コンポーネント、プレゼンのパターン集です。AgentがMarkdownとJSON形式のpropsを生成し、人は内容の確認と微修正に集中する運用を想定しています。
 
 ## 構成
 

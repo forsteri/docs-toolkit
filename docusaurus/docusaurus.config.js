@@ -6,7 +6,7 @@ const {theme: neutralMermaidTheme, ...neutralMermaidOptions} = neutralMermaid;
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'docs-toolkit',
-  tagline: '書き方・見せ方・作り方を一か所にまとめた個人用ドキュメントツールキット',
+  tagline: '書き方・見せ方・作り方を一か所にまとめたドキュメントツールキット',
   // GitHub Pages（https://forsteri.github.io/docs-toolkit/）で公開する前提。別の場所へ置く場合は url / baseUrl を変更する
   url: 'https://forsteri.github.io',
   baseUrl: '/docs-toolkit/',
