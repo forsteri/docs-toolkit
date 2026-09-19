@@ -19,7 +19,7 @@ description: 技術文書のフォーマット、書き方、テンプレート�
 
 ## ツールキットの利用ガイド
 
-Marp / Slidev / Pandoc / 図解基盤 / Docusaurus の「最初の一歩」は[ツールキット概要](./guide/index.md)から辿れます。
+Marp / Slidev / Pandoc / One-pager / 図解基盤 / Docusaurus の「最初の一歩」は[ツールキット概要](./guide/index.md)から辿れます。
 
 ## 最初に読むもの
 

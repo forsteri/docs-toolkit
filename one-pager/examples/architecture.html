@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>配信APIの構成</title>
+  <link rel="stylesheet" href="../theme.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>配信APIの構成</h1>
+    <p class="lead">エッジ・アプリケーション・データの3層。<mark>状態はS3にだけ置き</mark>、アプリケーション層は使い捨てにする。</p>
+  </header>
+
+  <section class="section">
+    <h2>3つの層と役割</h2>
+    <ol class="layers">
+      <li>
+        <h3>エッジ</h3>
+        <p>CloudFrontが利用者に最も近い場所で応答を返し、キャッシュできるものはアプリケーション層へ届けない。</p>
+      </li>
+      <li class="key">
+        <h3>アプリケーション</h3>
+        <p>API GatewayとLambda。リクエストごとに起動し、終われば消える。ここに状態を持たせない。</p>
+      </li>
+      <li>
+        <h3>データ</h3>
+        <p>S3。配信するオブジェクトと設定の唯一の置き場。バックアップと監査もここだけを見ればよい。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>要求の流れ</h2>
+    <figure class="diagram">
+      <img src="../../diagrams/generated/neutral/architecture-aws.svg" alt="CloudFront から API Gateway、Lambda を経由して S3 へ至る一方向の構成図">
+      <figcaption>矢印は一方向。データ層から上位層を呼び返す経路はない。</figcaption>
+    </figure>
+  </section>
+
+  <div class="callout">障害時に交換してよいのはアプリケーション層だけ。データ層を触る変更は、別の判断記録を通す。</div>
+</body>
+</html>

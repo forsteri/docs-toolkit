@@ -2,6 +2,15 @@
 
 docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
+## [Unreleased]
+
+### One-pager
+
+- 概念・方針・構造・ロードマップ・比較を1枚で説明する単体HTML形式`one-pager/`を追加。読む文書（Pandoc / Docusaurus）と見せる資料（Marp / Slidev）の中間に位置づける。
+- 単一CSS（`theme.css`）、テンプレート、用途別サンプル4種、依存なしの検査（`npm run check`）、CSS埋め込みスクリプト（`scripts/bundle.sh`）。
+- 「大きく、少なく、濃く」の方針をテーマと検査で固定する。文字サイズはpx指定で下限18px、文字色は濃いトークンだけ、部品は10個と`key`修飾子だけ、`section`・`callout`・`key`の個数と本文文字量に上限。
+- 配色は文書系と同じ値（`diagrams/themes/neutral.json`と検査で照合）。スライド向け`forsteri`テーマのブランド表現は持ち込まない。
+
 ## [0.1.0] - 2026-09-12
 
 最初の版。5形式（Pandoc / Docusaurus / Marp / Slidev / Diagrams）のテーマ・図解基盤・執筆規約・利用ガイドを収録。

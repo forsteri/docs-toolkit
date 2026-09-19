@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>内容とスタイルの分離</title>
+  <link rel="stylesheet" href="../theme.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>内容とスタイルの分離</h1>
+    <p class="lead">書き手はMarkdownで<mark>内容だけ</mark>を書く。色・レイアウト・フォントはテーマが決める。この分離が、文書の品質を人ではなく仕組みで揃える。</p>
+  </header>
+
+  <section class="section">
+    <h2>何を分けるのか</h2>
+    <div class="columns">
+      <div class="card key">
+        <h3>書き手が決めること</h3>
+        <ul>
+          <li>何を伝えるか、どの順で伝えるか</li>
+          <li>見出し・表・注記といった構造</li>
+          <li>事実・判断・未決事項の区別</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>テーマが決めること</h3>
+        <ul>
+          <li>色・フォント・文字サイズ</li>
+          <li>余白・段組・強調の見た目</li>
+          <li>出力形式ごとの体裁</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>なぜ分けるのか</h2>
+    <div class="columns three">
+      <div class="card">
+        <h3>品質が揃う</h3>
+        <p>誰が書いても、Agentが書いても、同じ見た目になる。見た目の良し悪しを毎回議論しなくてよい。</p>
+      </div>
+      <div class="card">
+        <h3>原本が一つになる</h3>
+        <p>同じMarkdownからサイト・PDF・スライドを出せる。修正は一か所で済む。</p>
+      </div>
+      <div class="card">
+        <h3>内容に集中できる</h3>
+        <p>色を選ぶ時間が、伝える順番を考える時間に変わる。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="callout">迷ったら、色を選ばずに構造を選ぶ。見出し・表・注記で表せないものだけ、テーマ側へ相談する。</div>
+</body>
+</html>

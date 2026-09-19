@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>タイトル</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <!-- 1. hero: タイトルと主メッセージ。lead はこの1枚で伝える結論を1〜2文で書く。 -->
+  <header class="hero">
+    <h1>題名は名詞句か結論文で短く</h1>
+    <p class="lead">読み手が最後に理解していてほしいことを、1〜2文で書く。ここが決まらないうちは本文を書かない。</p>
+  </header>
+
+  <!-- 2. section: 2〜4個。見出しは内容を予測できる名詞句か結論文にする。 -->
+  <section class="section">
+    <h2>最初のセクション</h2>
+    <p>本文はそのまま段落で書く。補足ラベルや小さな注釈は付けない。収まらなければ文を削る。</p>
+  </section>
+
+  <section class="section">
+    <h2>並べて見せるセクション</h2>
+    <div class="columns">
+      <div class="card">
+        <h3>要素A</h3>
+        <p>要素の説明を1〜3文で。</p>
+      </div>
+      <div class="card key">
+        <h3>要素B（主役）</h3>
+        <p>重要な要素には key を付けて目立たせる。1枚に2つまで。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. callout: 持ち帰ってほしいこと。1枚に1つまで。 -->
+  <div class="callout">読み手に覚えて帰ってほしいことを1文で。</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>スライドか、1枚資料か</title>
+  <link rel="stylesheet" href="../theme.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>スライドか、1枚資料か</h1>
+    <p class="lead">発表なら順番に見せる<mark>スライド</mark>。説明や共有なら一望できる<mark>1枚資料</mark>。読む時間が長いものは文書にする。</p>
+  </header>
+
+  <section class="section">
+    <h2>3つの形式の違い</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th>スライド（Marp / Slidev）</th>
+          <th>1枚資料（One-pager）</th>
+          <th>文書（Pandoc / Docusaurus）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>読み方</th>
+          <td>話し手の順番で1枚ずつ</td>
+          <td>全体を一目で、必要な所を読む</td>
+          <td>目次から探して読む</td>
+        </tr>
+        <tr>
+          <th>向く内容</th>
+          <td>提案、報告、意思決定</td>
+          <td>概念、方針、構成、ロードマップ</td>
+          <td>設計書、手順書、判断記録</td>
+        </tr>
+        <tr>
+          <th>作り方</th>
+          <td>Markdown原本</td>
+          <td>HTMLを直接書く（Agent前提）</td>
+          <td>Markdown原本</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>選ぶ基準</h2>
+    <div class="columns">
+      <div class="card key">
+        <h3>1枚資料を選ぶとき</h3>
+        <ul>
+          <li>伝えたいことが一つに絞れている</li>
+          <li>会議で画面共有して、その場で説明する</li>
+          <li>後から見返しても意味が分かるようにしたい</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>スライドを選ぶとき</h3>
+        <ul>
+          <li>話す順番で理解を積み上げる必要がある</li>
+          <li>判断してほしい論点が複数ある</li>
+          <li>発表そのものが成果物になる</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="callout">迷ったら1枚資料から始める。1枚に収まらなくなったときが、スライドか文書に切り替える合図。</div>
+</body>
+</html>

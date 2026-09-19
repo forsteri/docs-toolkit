@@ -14,6 +14,7 @@ const sidebars = {
         'guide/marp',
         'guide/slidev',
         'guide/pandoc',
+        'guide/one-pager',
         'guide/diagrams',
         'guide/docusaurus',
       ],
