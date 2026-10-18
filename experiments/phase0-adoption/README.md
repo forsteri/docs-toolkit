@@ -122,4 +122,40 @@ SVGを手で修正しない。SVG生成の識別子等は再描画で変わり�
 
 ## 独立レビュー
 
-実装後に規約と受入条件を別観点でレビューし、結果と対応をここへ追記する。レビュー前の状態を受け入れ可とは扱わない。
+`f2b5140...7402b44` を対象に、実装者と別のAgentがStandards（既存規約・保守性）とSpec（Issue #1・今回の依頼）の2観点を並行レビューした。どちらも修正必須の指摘0件。Specでは実ログとスクリプト・試料のハッシュ、実在HTMLのハッシュも照合した。別Agentによる再実行は行っていない。
+
+ブラウザ確認では、Issue #2の記入例のROADMAP相対リンクが持ち出しHTMLから開けないことを検出し、固定SHAのGitHub URLへ修正した。実装者による目視確認は別の証拠JSONに残す。これらは人間の採用・内容の受け入れや実案件での使いやすさの評価を代替しない。
+
+## ブラウザ用レビュー入口をまとめる
+
+以下はレビュー資料を既存PandocテンプレートでHTMLへ変換し、素のリンクを先頭に置く手順。独自CSS・表示コンポーネント・公開先は作らない。Issue #1と#2のcheckoutを別々に取得しておき、変数のパスを実際の配置に合わせる。PoCの再実行自体は上記 `run.py` の1コマンドで完結する。
+
+```bash
+# Issue #1 checkoutのルートから。Issue #2は別checkoutを参照する
+poc_checkout="$PWD"
+template_checkout='/path/to/issue-2-checkout'
+trial_dir='/private/tmp/docs-toolkit-phase0 trial-1'
+preview_dir="$poc_checkout/output/phase0-review"
+mkdir -p "$preview_dir"
+cp "$trial_dir/delivery/trial.html" "$preview_dir/trial.html"
+cp -R "$poc_checkout/experiments/phase0-adoption/results" "$preview_dir/"
+cat > "$preview_dir/navigation.html" <<'HTML'
+<p><a href="index.html">比較と検証</a> / <a href="review.html">判断用の記入例</a> / <a href="trial.html">外部生成の実物</a> / <a href="templates.html">雛形ガイド</a></p>
+HTML
+(
+  cd "$poc_checkout/pandoc"
+  pandoc --defaults defaults/html.yaml --fail-if-warnings \
+    --include-before-body "$preview_dir/navigation.html" \
+    --metadata title='Phase 0 レビュー入口' \
+    "$poc_checkout/experiments/phase0-adoption/README.md" -o "$preview_dir/index.html"
+  pandoc --defaults defaults/html.yaml --fail-if-warnings \
+    --include-before-body "$preview_dir/navigation.html" \
+    --metadata title='Phase 0 の記入例' \
+    "$template_checkout/examples/phase0/review.md" -o "$preview_dir/review.html"
+  pandoc --defaults defaults/html.yaml --fail-if-warnings \
+    --include-before-body "$preview_dir/navigation.html" \
+    "$template_checkout/docusaurus/docs/document-templates/small-change.md" -o "$preview_dir/templates.html"
+)
+```
+
+`output/phase0-review/index.html` を開く。上端のリンクから記入例・外部生成HTML・雛形へ移れる。`trial.html` はPoC生成物のコピーで、レビュー用HTML変換とは区別する。元試行で自動ブラウザのfile URLが制限されたため、持ち出し先ディレクトリだけを一時的にlocalhostへ配信して確認した。file URLでの直接表示、別ブラウザでの表示は未検証。一時プレビューは確認後に停止し、サイト公開は行わない。

@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-10-18 JST",
+  "toolkit_ref": "f2b5140610377ae80946d999f822cd9ffe1c3343",
+  "poc_reviewed_commit": "7402b44",
+  "templates_reviewed_commit": "44c6abb96612906abc540aac2e3ec90607c68f59",
+  "browser_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "automation": "Playwright CLI 0.1.20; screenshots inspected by Codex",
+  "viewport": {
+    "width": 1200,
+    "height": 1284
+  },
+  "artifact": "/private/tmp/docs-toolkit-phase0 trial-1/delivery/trial.html",
+  "html_sha256": "d070e119c3679808b1790e1e6197131e84e68a2de1cdb865aeb345f6f0ba86e6",
+  "delivery_context": "Source and toolkit trees are outside the served directory. Only delivery HTML was served on 127.0.0.1:8871 for the initial artifact check.",
+  "checks": [
+    {
+      "name": "PoC HTML screenshot: Japanese text, SVG, table and existing theme visible",
+      "passed": true
+    },
+    {
+      "name": "PoC SVG: complete and naturalWidth > 0; src is data URI",
+      "passed": true
+    },
+    {
+      "name": "PoC embedded style: 1; external script/link/image assets: 0",
+      "passed": true
+    },
+    {
+      "name": "PoC TOC click moved to the target hash and scrolled",
+      "passed": true
+    },
+    {
+      "name": "PoC and templates pages: scrollWidth = viewport width = 1200",
+      "passed": true
+    },
+    {
+      "name": "PoC and templates console: no errors or warnings",
+      "passed": true
+    },
+    {
+      "name": "Filled example: decision/current output/risks/next scope visible in order",
+      "passed": true
+    },
+    {
+      "name": "Templates: three role headings, four plain Markdown code blocks visible",
+      "passed": true
+    },
+    {
+      "name": "Templates: no missing internal anchor targets",
+      "passed": true
+    }
+  ],
+  "found_and_fixed": [
+    {
+      "issue": "Example ROADMAP link was relative to the source tree and unusable in standalone HTML",
+      "fix": "Issue #2 changes it to the fixed-main GitHub URL"
+    }
+  ],
+  "unverified": [
+    "Direct file:// navigation was blocked by the browser automation access policy; checked via temporary localhost instead",
+    "Other OS, browsers, viewport sizes and Pandoc versions",
+    "Human adoption, acceptance and usefulness in an actual project"
+  ],
+  "screenshots": [
+    "output/phase0-review/evidence/trial.png",
+    "output/phase0-review/evidence/review.png",
+    "output/phase0-review/evidence/templates.png"
+  ],
+  "note": "Screenshots and generated HTML are ignored outputs, not tracked sources. Automatic result.json describes the run before browser inspection."
+}
