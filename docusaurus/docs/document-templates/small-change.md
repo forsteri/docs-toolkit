@@ -18,7 +18,7 @@ description: Brief・チェックポイント・検証記録を必要な分だ�
 
 雛形は見出し、表、箇条書き、リンクだけで読める通常のMarkdownです。必要な項目だけコピーして、山括弧の記入欄を置き換え、不要な章を削除します。形式固有のfront matter、DocMeta、注記や独自CSSは必須ではありません。状態は実際のレビュー状況に合わせ、未決、未実施、未検証、人間の承認待ちを成功・採用・承認済みに変更しません。
 
-リポジトリの [`examples/phase0/review.md`](https://github.com/forsteri/docs-toolkit/blob/main/examples/phase0/review.md) に、同じ導入PoCの3つの役割を1ファイルにまとめた記入例があります。PRで確認する場合は、そのPRのファイル一覧から同じパスを開きます。これはサンプルプロジェクトによる試行であり、実案件での有用性や人間の採用判断を示すものではありません。
+リポジトリの [`examples/phase0/review.md`](https://github.com/forsteri/docs-toolkit/blob/codex/issue-2-minimal-templates/examples/phase0/review.md) に、同じ導入PoCの3つの役割を1ファイルにまとめた記入例があります。リンクは今回の提案ブランチ版です。PRで確認する場合は、そのPRのファイル一覧から同じパスを開きます。これはサンプルプロジェクトによる試行であり、実案件での有用性や人間の採用判断を示すものではありません。
 
 ## Brief：目的と到達点
 
