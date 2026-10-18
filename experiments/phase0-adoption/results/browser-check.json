@@ -1,0 +1,90 @@
+{
+  "checked_at": "2026-10-18 JST",
+  "toolkit_ref": "f2b5140610377ae80946d999f822cd9ffe1c3343",
+  "poc_reviewed_commit": "7402b44",
+  "templates_reviewed_commit": "44c6abb96612906abc540aac2e3ec90607c68f59",
+  "browser_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "automation": "Playwright CLI 0.1.20。Codexがスクリーンショットを目視確認",
+  "viewport": {
+    "width": 1200,
+    "height": 1284
+  },
+  "artifact": "/private/tmp/docs-toolkit-phase0 trial-1/delivery/trial.html",
+  "html_sha256": "d070e119c3679808b1790e1e6197131e84e68a2de1cdb865aeb345f6f0ba86e6",
+  "delivery_context": "最初の生成物確認では、原本とツールキットを配信ディレクトリの外へ置き、deliveryのHTMLだけを127.0.0.1:8871で一時配信した。",
+  "checks": [
+    {
+      "name": "PoCの画面で日本語本文・SVG・表・既存テーマを目視確認",
+      "passed": true
+    },
+    {
+      "name": "PoCのSVGは読込完了かつnaturalWidthが0より大きく、data URIで埋込済み",
+      "passed": true
+    },
+    {
+      "name": "PoCの埋込styleは1件、外部script・link・image資産は0件",
+      "passed": true
+    },
+    {
+      "name": "PoCの目次クリックで対象hashへ移動しスクロールした",
+      "passed": true
+    },
+    {
+      "name": "PoCと雛形ページのscrollWidthと表示幅はいずれも1200",
+      "passed": true
+    },
+    {
+      "name": "PoCと雛形ページのconsoleはエラー・警告なし",
+      "passed": true
+    },
+    {
+      "name": "記入例の判断依頼・現状と確認物・リスク・次範囲を順に表示",
+      "passed": true
+    },
+    {
+      "name": "雛形で3役割の見出しと通常Markdownのコード欄4つを表示",
+      "passed": true
+    },
+    {
+      "name": "雛形の内部アンカー参照先に欠落なし",
+      "passed": true
+    }
+  ],
+  "found_and_fixed": [
+    {
+      "issue": "記入例のROADMAPリンクが原本の相対パスで、持ち出しHTMLから開けなかった",
+      "fix": "Issue #2側で固定mainのGitHub URLへ変更"
+    }
+  ],
+  "unverified": [
+    "ブラウザ自動化のアクセス制限でfile://直開きは不可。一時的なlocalhost経由で確認した",
+    "他OS・他ブラウザ・他表示幅・他Pandoc版",
+    "人間の採用・受け入れ・実案件での有用性"
+  ],
+  "screenshots": [
+    "output/phase0-review/evidence/trial.png",
+    "output/phase0-review/evidence/review.png",
+    "output/phase0-review/evidence/templates.png"
+  ],
+  "note": "スクリーンショットと生成HTMLはGit追跡外の生成物。自動実行のresult.jsonはブラウザ確認前の状態を示す。",
+  "documentation_revision": {
+    "checked_at": "2026-10-18 JST",
+    "scope": "既存のレビュー入口と記入例の改稿。PoCコード・試料・実行結果は変更なし。",
+    "entry_markdown_sha256": "b710ad56b60a3dabaead2c4a41cf72ce9a5869a5ecae8cac9ab4e528f3caacd1",
+    "example_markdown_sha256": "c4ddda70b35b7978c360fe89c88b4ac204076293c1aa3dfea1e6822a7a56b654",
+    "generation": "README末尾の既存Pandocによる再生成手順を使用。HTMLを同じoutput/phase0-review/へ出力。",
+    "checks": [
+      "利用場面、現在と次の実装、選択の影響、判断依頼の順に表示",
+      "技術詳細9節を初期状態では閉じ、クリックで再実行コマンド4欄を表示",
+      "入口・記入例の内部リンク参照先に欠落なし、幅1200で横方向のはみ出しなし",
+      "記入例の実行結果・コマンド証拠リンクを保持",
+      "改稿後の記入例でconsoleの警告・エラー0、スクリーンショットを目視確認",
+      "既存のPoC生成HTMLのSHA-256は実行結果と一致"
+    ],
+    "independent_review": "今回の改稿では未実施。従来の独立レビューは改稿前の対象を示す。",
+    "screenshots": [
+      "output/phase0-review/evidence/usage-entry.png",
+      "output/phase0-review/evidence/usage-review.png"
+    ]
+  }
+}

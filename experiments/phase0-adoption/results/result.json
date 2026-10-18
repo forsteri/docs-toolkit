@@ -1,0 +1,77 @@
+{
+  "repository": "https://github.com/forsteri/docs-toolkit.git",
+  "toolkit_ref": "f2b5140610377ae80946d999f822cd9ffe1c3343",
+  "previous_ref": "1c1326111788890201893ed134876bc048f52cb8",
+  "runner_sha256": "777e215015e2b5f9c67fce023f2dc74228188640b1556836fc628a4cbb3a81a4",
+  "fixture_sha256": {
+    "assets/flow.mmd": "813db9a89b576e43b76286ce388d26c70992082f68ff999cf4b7a056356254b2",
+    "assets/flow.svg": "1c766360369a6fe8ba3a8b3ba52565869948349b546db0501338d64967f6e73a",
+    "trial.md": "1ec5c96ea0608820688012d2922fac81ae0ecd9d10d6b4526127cb8ee010dfb2"
+  },
+  "environment": {
+    "platform": "macOS-15.8-arm64-arm-64bit-Mach-O",
+    "macos": "15.8",
+    "python": "3.15.0",
+    "pandoc": "pandoc 3.12.1",
+    "git": "git version 2.56.0"
+  },
+  "legacy_exit_code": 0,
+  "checks": [
+    {
+      "name": "toolkit-a: 固定SHA",
+      "passed": true
+    },
+    {
+      "name": "toolkit-b: 固定SHA",
+      "passed": true
+    },
+    {
+      "name": "同一refを独立に再取得",
+      "passed": true
+    },
+    {
+      "name": "既存入口の画像欠落を再現",
+      "passed": true
+    },
+    {
+      "name": "output: CSSと相対SVGを埋込",
+      "passed": true
+    },
+    {
+      "name": "delivery: CSSと相対SVGを埋込",
+      "passed": true
+    },
+    {
+      "name": "独立clone間でHTMLが一致",
+      "passed": true
+    },
+    {
+      "name": "previous: CSSと相対SVGを埋込",
+      "passed": true
+    },
+    {
+      "name": "restored: CSSと相対SVGを埋込",
+      "passed": true
+    },
+    {
+      "name": "撤回後の出力一致",
+      "passed": true
+    },
+    {
+      "name": "利用側の本文と資産が不変",
+      "passed": true
+    },
+    {
+      "name": "toolkit-a: 管理ファイル不変",
+      "passed": true
+    },
+    {
+      "name": "toolkit-b: 管理ファイル不変",
+      "passed": true
+    }
+  ],
+  "html_sha256": "d070e119c3679808b1790e1e6197131e84e68a2de1cdb865aeb345f6f0ba86e6",
+  "output": "/private/tmp/docs-toolkit-phase0 trial-1/delivery/trial.html",
+  "browser_check": "未実施。この結果ファイルは自動実行の検証だけを記録する。",
+  "human_acceptance": "未実施。方式の採用とIssue #3への着手はユーザー判断待ち。"
+}

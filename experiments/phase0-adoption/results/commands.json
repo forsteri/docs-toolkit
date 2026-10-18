@@ -1,0 +1,246 @@
+[
+  {
+    "argv": [
+      "git",
+      "clone",
+      "--quiet",
+      "--no-checkout",
+      "https://github.com/forsteri/docs-toolkit.git",
+      "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a"
+    ],
+    "cwd": "/Users/forsteri/.codex/worktrees/docs-phase0-poc/docs-toolkit",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "checkout",
+      "--quiet",
+      "--detach",
+      "f2b5140610377ae80946d999f822cd9ffe1c3343"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a",
+    "exit_code": 0,
+    "stdout": "f2b5140610377ae80946d999f822cd9ffe1c3343\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "clone",
+      "--quiet",
+      "--no-checkout",
+      "https://github.com/forsteri/docs-toolkit.git",
+      "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b"
+    ],
+    "cwd": "/Users/forsteri/.codex/worktrees/docs-phase0-poc/docs-toolkit",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "checkout",
+      "--quiet",
+      "--detach",
+      "f2b5140610377ae80946d999f822cd9ffe1c3343"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "f2b5140610377ae80946d999f822cd9ffe1c3343\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD^{tree}"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a",
+    "exit_code": 0,
+    "stdout": "21f04b8bfb86949dd51123ec7597b6502382078a\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD^{tree}"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "21f04b8bfb86949dd51123ec7597b6502382078a\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a/pandoc/scripts/build-html.sh",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs/trial.md",
+      "/private/tmp/docs-toolkit-phase0 trial-1/legacy"
+    ],
+    "cwd": "/Users/forsteri/.codex/worktrees/docs-phase0-poc/docs-toolkit",
+    "exit_code": 0,
+    "stdout": "生成しました: /private/tmp/docs-toolkit-phase0 trial-1/legacy/trial.html\n",
+    "stderr": "[WARNING] Could not fetch resource assets/flow.svg\n"
+  },
+  {
+    "argv": [
+      "pandoc",
+      "--defaults",
+      "defaults/html.yaml",
+      "--fail-if-warnings",
+      "--resource-path=/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs:/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a/pandoc",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs/trial.md",
+      "-o",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/output/trial.html"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a/pandoc",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "--defaults",
+      "defaults/html.yaml",
+      "--fail-if-warnings",
+      "--resource-path=/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs:/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs/trial.md",
+      "-o",
+      "/private/tmp/docs-toolkit-phase0 trial-1/delivery/trial.html"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "checkout",
+      "--quiet",
+      "--detach",
+      "1c1326111788890201893ed134876bc048f52cb8"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "--defaults",
+      "defaults/html.yaml",
+      "--fail-if-warnings",
+      "--resource-path=/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs:/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs/trial.md",
+      "-o",
+      "/private/tmp/docs-toolkit-phase0 trial-1/previous/trial.html"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "checkout",
+      "--quiet",
+      "--detach",
+      "f2b5140610377ae80946d999f822cd9ffe1c3343"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "--defaults",
+      "defaults/html.yaml",
+      "--fail-if-warnings",
+      "--resource-path=/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs:/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+      "/private/tmp/docs-toolkit-phase0 trial-1/sample project/docs/trial.md",
+      "-o",
+      "/private/tmp/docs-toolkit-phase0 trial-1/restored/trial.html"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b/pandoc",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain",
+      "--untracked-files=all"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-a",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain",
+      "--untracked-files=all"
+    ],
+    "cwd": "/private/tmp/docs-toolkit-phase0 trial-1/shared tools/toolkit-b",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "--version"
+    ],
+    "cwd": "/Users/forsteri/.codex/worktrees/docs-phase0-poc/docs-toolkit",
+    "exit_code": 0,
+    "stdout": "pandoc 3.12.1\nFeatures: +server +lua\nScripting engine: Lua 5.4\nUser data directory: /Users/forsteri/.local/share/pandoc\nCopyright (C) 2006-2025 John MacFarlane. Web:  https://pandoc.org\nThis is free software; see the source for copying conditions. There is no\nwarranty, not even for merchantability or fitness for a particular purpose.\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "--version"
+    ],
+    "cwd": "/Users/forsteri/.codex/worktrees/docs-phase0-poc/docs-toolkit",
+    "exit_code": 0,
+    "stdout": "git version 2.56.0\n",
+    "stderr": ""
+  }
+]
