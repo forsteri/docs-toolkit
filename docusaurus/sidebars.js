@@ -39,6 +39,7 @@ const sidebars = {
         slug: '/document-templates',
       },
       items: [
+        'document-templates/small-change',
         'document-templates/design-document',
         'document-templates/procedure',
         'document-templates/decision-record',
