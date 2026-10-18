@@ -66,5 +66,25 @@
     "output/phase0-review/evidence/review.png",
     "output/phase0-review/evidence/templates.png"
   ],
-  "note": "スクリーンショットと生成HTMLはGit追跡外の生成物。自動実行のresult.jsonはブラウザ確認前の状態を示す。"
+  "note": "スクリーンショットと生成HTMLはGit追跡外の生成物。自動実行のresult.jsonはブラウザ確認前の状態を示す。",
+  "documentation_revision": {
+    "checked_at": "2026-10-18 JST",
+    "scope": "既存のレビュー入口と記入例の改稿。PoCコード・試料・実行結果は変更なし。",
+    "entry_markdown_sha256": "b710ad56b60a3dabaead2c4a41cf72ce9a5869a5ecae8cac9ab4e528f3caacd1",
+    "example_markdown_sha256": "c4ddda70b35b7978c360fe89c88b4ac204076293c1aa3dfea1e6822a7a56b654",
+    "generation": "README末尾の既存Pandocによる再生成手順を使用。HTMLを同じoutput/phase0-review/へ出力。",
+    "checks": [
+      "利用場面、現在と次の実装、選択の影響、判断依頼の順に表示",
+      "技術詳細9節を初期状態では閉じ、クリックで再実行コマンド4欄を表示",
+      "入口・記入例の内部リンク参照先に欠落なし、幅1200で横方向のはみ出しなし",
+      "記入例の実行結果・コマンド証拠リンクを保持",
+      "改稿後の記入例でconsoleの警告・エラー0、スクリーンショットを目視確認",
+      "既存のPoC生成HTMLのSHA-256は実行結果と一致"
+    ],
+    "independent_review": "今回の改稿では未実施。従来の独立レビューは改稿前の対象を示す。",
+    "screenshots": [
+      "output/phase0-review/evidence/usage-entry.png",
+      "output/phase0-review/evidence/usage-review.png"
+    ]
+  }
 }
