@@ -12,6 +12,7 @@ description: 技術文書のフォーマット、書き方、テンプレート�
 
 | 文書 | 読み手の目的 | 使用する場面 |
 | --- | --- | --- |
+| [小さな開発変更の最小文書セット](./document-templates/small-change.md) | 目的・途中判断・検証根拠を短く共有する | 小さな変更の開始、途中レビュー、完了確認 |
 | [設計書](./document-templates/design-document.md) | 実装・レビューに必要な方式と影響を理解する | 機能追加、構成変更、連携設計 |
 | [手順書](./document-templates/procedure.md) | 作業を安全に実施し、完了を確認する | リリース、移行、定型作業 |
 | [判断記録](./document-templates/decision-record.md) | 選択理由と見直し条件を追跡する | 方式選定、例外承認、方針変更 |
