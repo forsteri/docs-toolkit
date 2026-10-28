@@ -2,7 +2,27 @@
 
 docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
-## [Unreleased]
+## [0.2.0] - 2026-10-28
+
+6形式を形式ごとのリポジトリに分割し、このリポジトリは索引と共通のブランド道具だけを持つ入口にした。各形式の以後の変更は分割先のリポジトリで管理する。
+
+### 分割
+
+- `pandoc/` → [pandoc-template](https://github.com/forsteri/pandoc-template)、`docusaurus/` → [docusaurus-template](https://github.com/forsteri/docusaurus-template)、`one-pager/` → [one-pager](https://github.com/forsteri/one-pager)、`marp-theme/` → [marp-theme](https://github.com/forsteri/marp-theme)、`slidev/` → [slidev-theme](https://github.com/forsteri/slidev-theme)、`diagrams/` → [diagrams](https://github.com/forsteri/diagrams)。分割元はコミット `f2b5140`。Git履歴は分割先に引き継いでいない。
+- 6形式のディレクトリ、Docusaurus を GitHub Pages へ公開するワークフロー、ローカル起動設定（`.claude/launch.json`）を削除。利用ガイドは docusaurus-template の `docs/guide/` にある。
+- 分割先では色とフォントのトークン名を役割名の `--dt-*` に揃え、値を `@brand-tokens-start`〜`@brand-tokens-end` のブロックだけに書くようにした（旧 `--forsteri-*` などから移行）。
+
+### 追加
+
+- README を6リポジトリの索引にし、形式の選び方・取り込み方・動作確認済みの組み合わせを記載。
+- `brand/`: ブランド値の雛形 `tokens.css` と、各テンプレートのトークンブロックへ名前で当てる `apply.mjs`（`--tokens`・`--check`、Docusaurus のダーク側に対応）。ブランド面の範囲と既知の穴を `brand/README.md` に記載。docs-toolkit-sample の `brand/apply.mjs` を共通化したもの。
+- `docs/importing.md`: コピーでの取り込み、取り込み記録の書式、取り込み直しと改善の戻し方。
+
+### 変更
+
+- ROADMAP を分割後の状態に合わせて書き直した。
+
+## 分割前の未リリース分（v0.1.0 以降）
 
 ### One-pager
 
