@@ -59,11 +59,13 @@ cp build/mermaid/neutral.json onepager/design/neutral.json   # One-pager の配�
 
 ## 検査
 
-6リポジトリを同じフォルダに並べて取得し、このリポジトリで `node scripts/check.mjs --repos <そのフォルダ>` を実行すると、次を確かめます（依存なし）。
+このリポジトリで `node scripts/check.mjs` を実行すると、[`verified.json`](../verified.json) の先頭の組み合わせを記録したSHAで取得し、次を確かめます（依存なし、git が必要）。`--set <確認日>` で別の組み合わせ、`--repos <6リポジトリを並べたフォルダ>` で手元の未マージの変更を検査します。
 
+- `verified.json` の形が正しく、README の表の先頭行と一致する。記録したSHAで取得でき、タグがあれば同じコミットを指す
 - 既定の `brand/` を各テンプレートへ当てても何も変わらない
 - 既定の `tokens.css` を diagrams の `build:themes --tokens` に渡すと `themes/*.json` と同じものができ、その `neutral.json` で one-pager の検査が通る
-- ライトとダークが違う別のブランドでも、diagrams にはライトの値だけが渡り、one-pager の検査が通り、docusaurus のダーク側にだけダークの値が入る
+- ライトとダークが違う別のブランドを当てると、各テンプレートの「当てたあとに実行する」手順と依存なしの検査が通る（pandoc-template の check-tokens、docusaurus-template の brand:derive・build:mermaid・check と主色系にティールが残らないこと、slidev-theme の brand:sync・brand:check、one-pager の check）。diagrams にはライトの値だけが渡り、docusaurus のダーク側にだけダークの値が入る。marp-theme は値が入ったことだけを見る（変換の検査は Marp CLI が要る）
 - 規則を含む `tokens.css` を `apply.mjs` がエラーにする
+- `scripts/import.mjs` の追加・変更・削除・移動・競合・撤回（`scripts/test-import.mjs`）
 
 全形式の出力の確認は docs-toolkit-sample で行います。

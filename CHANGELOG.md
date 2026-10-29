@@ -2,6 +2,20 @@
 
 docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
+## Unreleased
+
+### 追加
+
+- `verified.json`: 動作確認済みの組み合わせを機械可読に記録する（リポジトリURL・完全なSHA・タグ・docs-toolkit-sample のSHA、`brand/` の取得元）。README の表はその先頭の短縮。
+- `scripts/fetch.mjs`: 記録した組み合わせを、記録した完全なSHAのまま取得する。タグが記録と違うコミットを指していれば失敗する。
+- `scripts/import.mjs`: 利用プロジェクトでの取り込み（`add`）、記録のコミットとの突き合わせ（`status`）、取り込み直しと撤回（`update`）。記録は利用側の `toolkit-imports.json` に完全なSHAで残す。上流の削除・移動を当て、利用側の改変は3方向マージで残し、競合を一覧にする。
+- `scripts/test-import.mjs`: `import.mjs` の追加・変更・削除・移動・競合・撤回の検査。
+
+### 変更
+
+- `scripts/check.mjs`: 既定で `verified.json` の先頭の組み合わせを取得して検査するようにした（`--set`、従来の `--repos` も使える）。記録と README の一致、別のブランドを当てたあとの各テンプレートの手順と検査（pandoc-template・docusaurus-template・slidev-theme）、`import.mjs` の検査を加えた。
+- `docs/importing.md`: `import.mjs` を使う手順に書き直し、取り込み直しの場合分け、撤回、版の付け方、docs-toolkit-sample で確かめたことを追記。
+
 ## [0.2.0] - 2026-10-28
 
 6形式を形式ごとのリポジトリに分割し、このリポジトリは索引と共通のブランド道具だけを持つ入口にした。各形式の以後の変更は分割先のリポジトリで管理する。

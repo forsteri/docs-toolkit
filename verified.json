@@ -1,0 +1,91 @@
+{
+  "description": "docs-toolkit-sample で確認した組み合わせ。新しいものを先頭に足す。commit が正本で、tag は目印",
+  "sets": [
+    {
+      "verified": "2026-10-29",
+      "note": "テンプレートは 2026-10-28 と同じ。サンプルの brand/ を docs-toolkit の brand/ から取り込み直し、当て直しても全テンプレートで差分が無いことを確認",
+      "sample": {
+        "repo": "https://github.com/forsteri/docs-toolkit-sample.git",
+        "commit": "6dff849a8fee07e93a6fcfea8a0a742d4111f78a"
+      },
+      "repos": {
+        "pandoc-template": {
+          "repo": "https://github.com/forsteri/pandoc-template.git",
+          "commit": "e96127081270bc0ed079f4703294f6150fc9ac13",
+          "tag": null
+        },
+        "docusaurus-template": {
+          "repo": "https://github.com/forsteri/docusaurus-template.git",
+          "commit": "298e7c676de0f6623ba868e71695f7dd79e52f2a",
+          "tag": null
+        },
+        "one-pager": {
+          "repo": "https://github.com/forsteri/one-pager.git",
+          "commit": "10c373546ffc92129b5347ad1a2dba6de53935af",
+          "tag": null
+        },
+        "marp-theme": {
+          "repo": "https://github.com/forsteri/marp-theme.git",
+          "commit": "25e8108dfcc9293bbc731657bf2e8f91dd5eee06",
+          "tag": null
+        },
+        "slidev-theme": {
+          "repo": "https://github.com/forsteri/slidev-theme.git",
+          "commit": "eab5fcbc4684fadb1650a01a507272cc338d34f9",
+          "tag": null
+        },
+        "diagrams": {
+          "repo": "https://github.com/forsteri/diagrams.git",
+          "commit": "58c60b75e795e667d70850d3223cb2a72ecf8104",
+          "tag": null
+        },
+        "docs-toolkit": {
+          "repo": "https://github.com/forsteri/docs-toolkit.git",
+          "path": "brand",
+          "commit": "aef39039d1266df96824f11536d4a71bac0bd7fb",
+          "tag": null
+        }
+      }
+    },
+    {
+      "verified": "2026-10-28",
+      "note": "docs-toolkit-sample で6形式すべてを取り込み、全形式の生成を確認",
+      "sample": {
+        "repo": "https://github.com/forsteri/docs-toolkit-sample.git",
+        "commit": "da6a2aac6fb7f1e69592fbcfa33eb45ddb9ca45e"
+      },
+      "repos": {
+        "pandoc-template": {
+          "repo": "https://github.com/forsteri/pandoc-template.git",
+          "commit": "e96127081270bc0ed079f4703294f6150fc9ac13",
+          "tag": null
+        },
+        "docusaurus-template": {
+          "repo": "https://github.com/forsteri/docusaurus-template.git",
+          "commit": "298e7c676de0f6623ba868e71695f7dd79e52f2a",
+          "tag": null
+        },
+        "one-pager": {
+          "repo": "https://github.com/forsteri/one-pager.git",
+          "commit": "10c373546ffc92129b5347ad1a2dba6de53935af",
+          "tag": null
+        },
+        "marp-theme": {
+          "repo": "https://github.com/forsteri/marp-theme.git",
+          "commit": "25e8108dfcc9293bbc731657bf2e8f91dd5eee06",
+          "tag": null
+        },
+        "slidev-theme": {
+          "repo": "https://github.com/forsteri/slidev-theme.git",
+          "commit": "eab5fcbc4684fadb1650a01a507272cc338d34f9",
+          "tag": null
+        },
+        "diagrams": {
+          "repo": "https://github.com/forsteri/diagrams.git",
+          "commit": "58c60b75e795e667d70850d3223cb2a72ecf8104",
+          "tag": null
+        }
+      }
+    }
+  ]
+}
