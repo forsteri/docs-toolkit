@@ -2,6 +2,13 @@
 
 docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
+## [Unreleased]
+
+### 変更
+
+- `brand/tokens.css` に系列色1（`--dt-series-1`）とスライドの Night パレット（`--dt-night-*`）を加え、主色を変えたときにティールが残らないようにした。`--dt-accent-strong` はコメントを外し、全テンプレートで揃えた既定値 `#0a534d` にした（marp-theme・slidev-theme・diagrams の `forsteri` は `#115e59` から変更）。
+- `scripts/check.mjs`: 別のブランドを当てたあと、diagrams `forsteri` の系列色1が変わること、Marp・Slidev のトークンブロックに既定のティール系の値が残らないことを検査する。
+
 ## [0.2.0] - 2026-10-28
 
 6形式を形式ごとのリポジトリに分割し、このリポジトリは索引と共通のブランド道具だけを持つ入口にした。各形式の以後の変更は分割先のリポジトリで管理する。
