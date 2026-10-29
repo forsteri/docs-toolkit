@@ -15,7 +15,8 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 ### 追加
 
 - README を6リポジトリの索引にし、形式の選び方・取り込み方・動作確認済みの組み合わせを記載。
-- `brand/`: ブランド値の雛形 `tokens.css` と、各テンプレートのトークンブロックへ名前で当てる `apply.mjs`（`--tokens`・`--check`、Docusaurus のダーク側に対応）。ブランド面の範囲と既知の穴を `brand/README.md` に記載。docs-toolkit-sample の `brand/apply.mjs` を共通化したもの。
+- `brand/`: ブランド値の雛形 `tokens.css`（ライト）・`tokens.dark.css`（Docusaurus のダーク）と、各テンプレートのトークンブロックへ名前で当てる `apply.mjs`（`--tokens`・`--dark-tokens`・`--check`）。ブランド面の範囲と既知の穴を `brand/README.md` に記載。docs-toolkit-sample の `brand/apply.mjs` を共通化したもの。
+- `scripts/check.mjs`: brand/ → 各テンプレート、brand/ → diagrams → one-pager の組み合わせを検査する（依存なし）。
 - `docs/importing.md`: コピーでの取り込み、取り込み記録の書式、取り込み直しと改善の戻し方。
 
 ### 変更

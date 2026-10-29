@@ -1,56 +1,52 @@
-// ブランド値のファイル（既定は同じフォルダの tokens.css）を、各テンプレートの
-// @brand-tokens ブロック内の同名トークンへ書き込む。依存なし、Node.js 20以上。
+// ブランド値のファイルを、各テンプレートの @brand-tokens ブロック内の同名トークンへ書き込む。
+// 依存なし、Node.js 20以上。
 //
-// 使い方: node brand/apply.mjs [--tokens <file>] [--check] <テンプレートのCSS>...
-//   --tokens  ブランド値のファイル。省略時はこのスクリプトと同じフォルダの tokens.css
-//   --check   書き込まず、値が違うトークンを表示する。違いがあれば終了コード1
+// 使い方: node brand/apply.mjs [--tokens <file>] [--dark-tokens <file>] [--check] <テンプレートのCSS>...
+//   --tokens       ライトの値。省略時はこのスクリプトと同じフォルダの tokens.css
+//   --dark-tokens  Docusaurus のダークの値。省略時はライトの値と同じフォルダの tokens.dark.css（無ければ使わない）
+//   --check        書き込まず、値が違うトークンを表示する。違いがあれば終了コード1
 //
-// ブランド値のファイルの書き方:
-// - 規則の外（または :root { } の中）の宣言は、ブロック内で最初に現れる同名の宣言（ライト側）へ当てる。
-// - [data-theme='dark'] { } の中の宣言は、ブロック内の同じセレクタの規則へ当てる（Docusaurus のダーク）。
-//   その規則を持たないテンプレートでは無視する。
+// ブランド値のファイルは、どちらも規則で囲まない宣言の並びで書く（diagrams の --tokens と同じ形）。
+// - ライトの値は、ブロック内で最初に現れる同名の宣言へ当てる。
+// - ダークの値は、ブロック内の [data-theme='dark'] { } の規則へ当てる。この規則を持たないテンプレートでは使わない。
 // - テンプレートのブロックに無い名前は無視する。どのファイルにも無い名前は警告する（綴りの誤りの検出用）。
-import {readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 
 const startMarker = '/* @brand-tokens-start */';
 const endMarker = '/* @brand-tokens-end */';
+const darkSelector = "[data-theme='dark']";
+const usage = '使い方: node brand/apply.mjs [--tokens <file>] [--dark-tokens <file>] [--check] <テンプレートのCSS>...';
 
 const args = process.argv.slice(2);
-const check = args.includes('--check');
-const tokensIndex = args.indexOf('--tokens');
-const tokensFile = tokensIndex >= 0
-  ? path.resolve(args[tokensIndex + 1] ?? '')
-  : path.join(path.dirname(fileURLToPath(import.meta.url)), 'tokens.css');
-const files = args.filter((arg, i) => arg !== '--check' && (tokensIndex < 0 || (i !== tokensIndex && i !== tokensIndex + 1)));
-const unknown = files.filter((arg) => arg.startsWith('--'));
-if (tokensIndex >= 0 && !args[tokensIndex + 1]) throw new Error('--tokens にファイルを指定してください');
-if (unknown.length > 0) throw new Error(`不明な引数です: ${unknown.join(', ')}`);
+const options = {};
+const files = [];
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--check') options.check = true;
+  else if (args[i] === '--tokens' || args[i] === '--dark-tokens') {
+    if (!args[i + 1] || args[i + 1].startsWith('--')) throw new Error(`${args[i]} にファイルを指定してください`);
+    options[args[i]] = path.resolve(args[++i]);
+  } else if (args[i].startsWith('--')) throw new Error(`不明な引数です: ${args[i]}`);
+  else files.push(args[i]);
+}
 if (files.length === 0) {
-  console.error('使い方: node brand/apply.mjs [--tokens <file>] [--check] <テンプレートのCSS>...');
+  console.error(usage);
   process.exit(2);
 }
+const lightFile = options['--tokens'] ?? path.join(path.dirname(fileURLToPath(import.meta.url)), 'tokens.css');
+const darkFile = options['--dark-tokens'] ?? path.join(path.dirname(lightFile), 'tokens.dark.css');
 
-function declarations(css) {
+// 規則で囲まない宣言の並びを読む。規則があると diagrams の --tokens が同名を後勝ちで読んでしまうので受け付けない
+function readTokens(file) {
+  const css = readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  if (css.includes('{')) {
+    throw new Error(`${file}: 規則（{ }）を書かず、宣言だけを並べてください。ダークの値は tokens.dark.css に分けます`);
+  }
   const map = new Map();
   for (const m of css.matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) map.set(m[1], m[2].replace(/\s+/g, ' ').trim());
+  if (map.size === 0) throw new Error(`${file}: トークンの宣言がありません`);
   return map;
-}
-
-// ブランド値を、当てる先（null はライト側、文字列はセレクタ）ごとに分ける
-function readBrand(file) {
-  let css = readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
-  const groups = new Map();
-  for (const m of css.matchAll(/([^{};]+)\{([^}]*)\}/g)) {
-    const selector = m[1].trim();
-    const key = selector === ':root' ? null : selector;
-    groups.set(key, new Map([...(groups.get(key) ?? []), ...declarations(m[2])]));
-  }
-  css = css.replace(/[^{};]+\{[^}]*\}/g, '');
-  groups.set(null, new Map([...declarations(css), ...(groups.get(null) ?? [])]));
-  if ([...groups.values()].every((g) => g.size === 0)) throw new Error(`${file}: トークンの宣言がありません`);
-  return groups;
 }
 
 // text の中で最初に現れる --name の宣言の値を value にする。差し替えた結果と、元の値を返す
@@ -62,7 +58,11 @@ function replaceFirst(text, name, value) {
   return {text: text.replace(re, `$1${value}$3`), before};
 }
 
-const brand = readBrand(tokensFile);
+// 当てる先: selector が null ならブロック全体の最初の宣言、文字列ならその規則の中
+const groups = [{selector: null, label: '', tokens: readTokens(lightFile)}];
+if (options['--dark-tokens'] || existsSync(darkFile)) {
+  groups.push({selector: darkSelector, label: 'ダーク ', tokens: readTokens(darkFile)});
+}
 const used = new Set();
 let differs = false;
 
@@ -75,7 +75,7 @@ for (const file of files) {
   const applied = [];
   const changed = [];
 
-  for (const [selector, tokens] of brand) {
+  for (const {selector, label, tokens} of groups) {
     let head = 0;
     let tail = block.length;
     if (selector !== null) {
@@ -87,16 +87,15 @@ for (const file of files) {
     for (const [name, value] of tokens) {
       const result = replaceFirst(rule, name, value);
       if (!result) continue;
-      const label = selector === null ? name : `${selector} ${name}`;
-      used.add(label);
-      applied.push(label);
-      if (result.before !== value) changed.push(`  --${label}: ${result.before} → ${value}`);
+      used.add(label + name);
+      applied.push(label + name);
+      if (result.before !== value) changed.push(`  ${label}--${name}: ${result.before} → ${value}`);
       rule = result.text;
     }
     block = block.slice(0, head) + rule + block.slice(tail);
   }
 
-  if (check) {
+  if (options.check) {
     console.log(`${file}: ${applied.length}件中 ${changed.length}件が違います`);
     for (const line of changed) console.log(line);
     if (changed.length > 0) differs = true;
@@ -106,10 +105,9 @@ for (const file of files) {
   }
 }
 
-for (const [selector, tokens] of brand) {
+for (const {label, tokens} of groups) {
   for (const name of tokens.keys()) {
-    const label = selector === null ? name : `${selector} ${name}`;
-    if (!used.has(label)) console.warn(`警告: --${label} はどのファイルのトークンブロックにもありません`);
+    if (!used.has(label + name)) console.warn(`警告: ${label}--${name} はどのファイルのトークンブロックにもありません`);
   }
 }
 if (differs) process.exit(1);

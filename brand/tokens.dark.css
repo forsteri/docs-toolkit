@@ -1,0 +1,5 @@
+/* Docusaurus のダークモードの値。node brand/apply.mjs が tokens.css と一緒に読み、
+   docusaurus-template のブロック内の [data-theme='dark'] { } へ当てる。ほかのテンプレートと diagrams には渡さない。
+   派生色（主色の段階・info・status-review など）は、当てたあとに npm run brand:derive -- --write で計算する。 */
+--dt-accent: #5eead4;
+--dt-accent-soft: #173a38;
