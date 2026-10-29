@@ -1,63 +1,65 @@
 # docs-toolkit — ドキュメントツールキット
 
-**v0.1.0**
+技術文書とプレゼンテーションを作るためのテンプレート群の**入口**です。テンプレートそのものは形式ごとの6つのリポジトリにあり、このリポジトリには索引・形式の選び方・取り込み方と、全テンプレートに共通するブランド値の道具（[`brand/`](brand/README.md)）だけを置いています。
 
-技術文書とプレゼンテーションの書き方・見せ方・作り方をまとめたツールキットです。文書本文はMarkdownを原本とし、用途に応じて6つの形式（5つの出力形式＋図解基盤）を使い分けます。
+v0.1.0 まではこのリポジトリに6形式が同居していました。v0.2.0 で形式ごとのリポジトリに分割し、各形式の中身はここから削除しました（[CHANGELOG](CHANGELOG.md)）。
 
-利用ガイドはDocusaurusサイトに統合しています。
+## リポジトリ
 
-```bash
-cd docusaurus && npm install && npm start
-```
-
-| Format | Purpose | Visual policy | Status |
+| リポジトリ | 形式 | 使いどころ | 見た目 |
 | --- | --- | --- | --- |
-| Pandoc | 単体HTML / PDFとして配布する技術文書 | ニュートラル。AWSドキュメントを参考にした簡潔な情報設計。主色はティール | Active |
-| Docusaurus | 検索・ナビゲーション付きの継続更新ドキュメント（利用ガイドを含む） | ニュートラル。Pandocと共通の読み味。主色はティール | Active |
-| One-pager | 概念・方針・構造を1枚で説明する単体HTML（画面共有・Agent生成前提） | ニュートラル。文書系と同じ配色で、大きな文字と少ない部品に限定 | Active |
-| Marp | プレゼンテーション（PDF・人手/Agent両用） | `forsteri`テーマ | Active |
-| Slidev | プレゼンテーション / 静的SPA（Agent前提） | `forsteri`テーマ（Marpと同じトークン） | Active |
-| Diagrams | Mermaid原本から全形式へ同じ見た目の図を出す共通基盤 | `neutral` / `forsteri`の2テーマ | Active |
+| [pandoc-template](https://github.com/forsteri/pandoc-template) | Pandoc | 単体HTML / PDFとして配る設計書・手順書・判断記録・ランブック | 文書系（ニュートラル＋主色） |
+| [docusaurus-template](https://github.com/forsteri/docusaurus-template) | Docusaurus | 検索とナビゲーション付きで継続更新するドキュメントサイト。執筆規約と全形式の利用ガイドもここ | 文書系 |
+| [one-pager](https://github.com/forsteri/one-pager) | 単体HTML | 概念・方針・構成・比較を1枚で説明する資料（画面共有・Agent生成前提） | 文書系の配色で、大きな文字と少ない部品 |
+| [marp-theme](https://github.com/forsteri/marp-theme) | Marp | Markdownから作るPDFのスライド。人手でもAgentでも書ける | スライド系（見出し帯・章扉・系列色・Night） |
+| [slidev-theme](https://github.com/forsteri/slidev-theme) | Slidev | 図解コンポーネントと用途別パターンを使うスライド / 静的SPA | スライド系 |
+| [diagrams](https://github.com/forsteri/diagrams) | Mermaid | 上の全形式で同じ見た目の図（SVG）を出す。AWS公式アイコン入り | `neutral`（文書系）/ `forsteri`（スライド系） |
 
-## 基本方針
+どのリポジトリも単独で動き、ほかのリポジトリを取得しません。各リポジトリの README に必要環境・最初の実行・検査コマンドがあります。
 
-- ブランド表現（見出し帯・章扉・系列色などのスライド向けデザイン）はMarp / Slidevの`forsteri`テーマで行います。文書系（Pandoc / Docusaurus）はニュートラルな情報設計ですが、主色は共通のティール `#0f766e` に揃え、ひとつのツールキットに見えるようにします。
-- 共有トークン（色・フォント）はMarpの`marp-theme/themes/forsteri/forsteri.css`が単一ソースです。Slidevテーマは`npm run brand:sync`、図解基盤の`forsteri`テーマは`npm run build:themes`でそこから生成します。
-- 装飾画像は使いません。線・面・主色だけのシンプルなデザインです。
-- PandocとDocusaurusは、強い見出し階層、左ナビゲーション、ティールのリンク、控えめな罫線、読みやすいコードと注記を共通要素とします。
-- 文書本文はMarkdownを原本とし、内容と出力スタイルを分離します。書き手は色やレイアウトを選びません。
-- One-pagerは文書系と同じ配色のまま、文字を大きく・部品を少なく・色を濃く限定した1枚資料の形式です。Markdownではなく用意した部品でHTMLを直接書き（Agent生成前提）、収まらない情報は文字を縮めずに削ります。
-- 文書・コードコメントは日本語で統一します。
+取り込みの実例は [docs-toolkit-sample](https://github.com/forsteri/docs-toolkit-sample)（架空の配送追跡API「Hakobi Track」）です。6つすべてを取り込み、ブランド値を差し替えて全形式を生成しています。
 
-## ディレクトリ
+## 形式の選び方
 
-- `docusaurus/`: 継続更新するドキュメントサイト（ツールキット利用ガイド・執筆規約・文書テンプレートを含む）
-- `pandoc/`: 単体HTML / PDF向けテンプレートとbashビルドスクリプト
-- `one-pager/`: 1枚で説明する単体HTML形式（`theme.css`・テンプレート・サンプル・Agent向け生成ルール）
-- `marp-theme/`: `forsteri` Marpテーマ（共有トークンの単一ソース）
-- `slidev/`: `forsteri` Slidevテーマ、スマートアートコンポーネント、用途別パターン
-- `diagrams/`: Mermaid図解基盤（`neutral` / `forsteri`テーマ・レンダラ・AWS公式アイコン）
-- `CHANGELOG.md`: バージョンごとの変更履歴
+| 作りたいもの | 形式 |
+| --- | --- |
+| ファイル1つで渡す・印刷する文書 | pandoc-template |
+| 何本もの文書を継続して更新し、検索させたい | docusaurus-template |
+| 会議で1枚見せて説明する | one-pager |
+| 発表資料をPDFで配る | marp-theme |
+| 図解の多い発表資料、ブラウザで見せる資料 | slidev-theme |
+| どの形式にも載せる図 | diagrams（ほかの形式と組み合わせる） |
 
-## 検査コマンド
+迷ったら、文書は pandoc-template、発表は marp-theme から始め、必要になった形式だけを足します。使わない形式を取り込む必要はありません。
 
-各ディレクトリで変更したら、対応する検査を通します。
+## 取り込み方
 
-| ディレクトリ | コマンド | 備考 |
-| --- | --- | --- |
-| `marp-theme/` | `npm run check` | 単一CSS（`forsteri.css`）と共有トークンの検証 |
-| `slidev/` | `npm run brand:sync && npm run check` | Node 24.19.0（`.node-version`）。`check`はビルドとパターン集ビルドを含む |
-| `diagrams/` | `npm run build:themes && npm run check` | `neutral`はDocusaurusのCSS、`forsteri`はMarpトークンと照合。Chromeは`/Applications/Google Chrome.app`を自動検出 |
-| `docusaurus/` | `npm run build` | `onBrokenLinks: 'throw'`。初回コミット前は`git log`が無いため最終更新日の取得で失敗する（コミット後は不要） |
-| `pandoc/` | `pandoc --defaults defaults/html.yaml samples/design-doc.md -o build/design-doc.html` | PDFは`scripts/build-pdf.sh samples/design-doc.md`（Google Chromeのヘッドレス印刷） |
-| `one-pager/` | `npm run check` | 依存なし（`npm install`不要）。文字サイズの下限、文書系トークン（`diagrams/themes/neutral.json`）との一致、テンプレートとサンプルの部品制約を検証 |
+利用プロジェクトへは**コピーで取り込み、取り込み元のコミットを記録**します。手順と記録の書式は [docs/importing.md](docs/importing.md) にあります。
 
-## 必要環境
+1. 使う形式のリポジトリを、利用プロジェクトの決めた場所（`tools/pandoc-template/` など）へコピーする
+2. 取り込み元のコミットと、利用側で改変したファイルを記録する
+3. [`brand/`](brand/README.md) をコピーし、`tokens.css`（ライト）と `tokens.dark.css`（Docusaurusのダーク）に自分のブランド値を書いて `apply.mjs` で当てる
+4. 取り込み直すときは記録を見て、改変したファイル以外を差し替える。改善はテンプレート側のリポジトリへ戻す
 
-- macOS（zsh）。スクリプトはbashで書かれています
-- Node.js 20以上（Slidevのみ24.19.0）とnpm
-- Pandoc 3.x、Google Chrome（PDF化・図のレンダリング）
+## 動作確認済みの組み合わせ
+
+docs-toolkit-sample で全形式の生成を確認した、各リポジトリのコミットです。取り込むときの基準にしてください。
+
+| 確認日 | サンプル | pandoc-template | docusaurus-template | one-pager | marp-theme | slidev-theme | diagrams |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10-28 | `da6a2aa` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` |
+
+各リポジトリにはまだタグがないため、コミットで記録しています。
+
+## 共通の方針
+
+- 文書本文はMarkdown（One-pagerはHTML）を原本とし、内容と見た目を分けます。書き手は色やレイアウトを選びません。
+- 色とフォントの値は各テンプレートの `@brand-tokens-start`〜`@brand-tokens-end` ブロックだけに書き、本体は役割名（`--dt-accent`、`--dt-text-muted`、`--dt-line` など）で参照します。ブランドの差し替えはこのブロックの値を変えるだけで済みます（[ブランド面の範囲](brand/README.md#ブランド面の範囲)）。
+- 装飾画像は使わず、線・面・主色だけで構成します。既定の主色はティール `#0f766e` です。
+- 文書・コードコメントは日本語で書きます。
+
+`brand/` と各テンプレートの組み合わせは `node scripts/check.mjs --repos <6リポジトリを並べたフォルダ>` で検査できます（[検査の内容](brand/README.md#検査)）。開発の方向性は [ROADMAP.md](ROADMAP.md) にあります。
 
 ## ライセンス
 
-[MIT License](LICENSE)です。`diagrams/assets/aws/`のAWS Architecture IconsはAWSが配布するアセットで、利用条件は[配布元](https://aws.amazon.com/architecture/icons/)に従います（詳細は`diagrams/assets/aws/2026-q3/SOURCE.md`）。
+[MIT License](LICENSE)です。各リポジトリのライセンスと同梱物の利用条件は、それぞれの `LICENSE` と `THIRD_PARTY_NOTICES.md` を見てください。

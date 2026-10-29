@@ -3,12 +3,3 @@
 
 # 依存・キャッシュ
 node_modules/
-.cache/
-npm-debug.log*
-
-# 生成物
-output/
-dist/
-pandoc/build/
-docusaurus/build/
-docusaurus/.docusaurus/

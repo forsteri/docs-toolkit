@@ -1,0 +1,16 @@
+/* ブランド値（ライト）。node brand/apply.mjs で各テンプレートの @brand-tokens ブロックへ名前で当て、
+   diagrams にはこのファイルをそのまま --tokens で渡す。規則（{ }）は書かず、宣言だけを並べる。 */
+/* 値はテンプレートの既定（主色ティール）の写し。利用プロジェクトではこのファイルをコピーして値を変える。 */
+/* 何がこのファイルで変わり、何が変わらないかは brand/README.md の「ブランド面の範囲」を参照。 */
+
+--dt-accent: #0f766e;
+/* 主色・濃は既定値が文書系（Pandoc・Docusaurus・One-pager）#0a534d とスライド系（Marp・Slidev・diagrams の forsteri）#115e59 で違う。
+   既定のままにするためコメントにしてある。ブランドを変えるときは外して1色に決める（全テンプレートで揃う）。
+--dt-accent-strong: #0a534d; */
+--dt-accent-soft: #f0fdfa;
+--dt-accent-tint: #ccfbf1; /* Docusaurus・diagrams neutral の Mermaid アクティベーション面 */
+--dt-on-accent: #ffffff;
+
+/* スライドの Night（ダーク）テーマの主色 */
+--dt-night-accent-rgb: 94 234 212; /* #5eead4 */
+--dt-night-accent-deep: #0c3b39; /* Marp の dark 表紙のグラデーション中間色 */
