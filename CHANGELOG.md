@@ -2,7 +2,7 @@
 
 docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
-## Unreleased
+## [Unreleased]
 
 ### 追加
 
@@ -14,6 +14,8 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ### 変更
 
+- `brand/tokens.css` に系列色1（`--dt-series-1`）とスライドの Night パレット（`--dt-night-*`）を加え、主色を変えたときにティールが残らないようにした。`--dt-accent-strong` はコメントを外し、全テンプレートで揃えた既定値 `#0a534d` にした（marp-theme・slidev-theme・diagrams の `forsteri` は `#115e59` から変更）。
+- `scripts/check.mjs`: 別のブランドを当てたあと、diagrams `forsteri` の系列色1が変わること、Marp・Slidev のトークンブロックに既定のティール系の値が残らないことを検査する。
 - `scripts/check.mjs`: 既定で `verified.json` の先頭の組み合わせを取得して検査するようにした（`--set`、従来の `--repos` も使える）。記録と README の一致、別のブランドを当てたあとの各テンプレートの手順と検査（pandoc-template・docusaurus-template・slidev-theme）、`import.mjs` の検査を加えた。
 - `docs/importing.md`: `import.mjs` を使う手順に書き直し、取り込み直しの場合分け、撤回、版の付け方、docs-toolkit-sample で確かめたことを追記。
 

@@ -47,13 +47,14 @@ docs-toolkit-sample で確認した、各リポジトリのコミットです。
 
 | 確認日 | サンプル | pandoc-template | docusaurus-template | one-pager | marp-theme | slidev-theme | diagrams | docs-toolkit |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10-30 | `535bf26` | `e961270` | `298e7c6` | `10c3735` | `e05fda0` | `5865e12` | `55de27c` | `a721c8b`（`brand/`） |
 | 2026-10-29 | `6dff849` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` | `aef3903`（`brand/`） |
 | 2026-10-28 | `da6a2aa` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` | — |
 
-6リポジトリの上の各コミットには `v0.1.0` のタグがあります。記録した組み合わせは、そのSHAのまま取得できます（`--sample` でサンプルも取得）。
+2026-10-28 の行の各コミットには `v0.1.0` のタグがあります（2026-10-30 の marp-theme・slidev-theme・diagrams はタグなし）。記録した組み合わせは、そのSHAのまま取得できます（`--sample` でサンプルも取得）。
 
 ```bash
-node scripts/fetch.mjs --into ../toolkit-2026-10-29             # 先頭の組み合わせ
+node scripts/fetch.mjs --into ../toolkit-2026-10-30             # 先頭の組み合わせ
 node scripts/fetch.mjs --into ../toolkit-2026-10-28 --set 2026-10-28
 ```
 

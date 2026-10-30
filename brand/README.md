@@ -39,9 +39,9 @@ node brand/apply.mjs tools/pandoc-template/styles/document.css docs-site/src/css
 | pandoc-template | `styles/document.css` | `accent` `accent-strong` `accent-soft` | なし | 上部バー・コード面・注記の状態色（ニュートラルな配色として固定） |
 | docusaurus-template | `src/css/custom.css` | ライトの `accent` `accent-strong` `accent-soft` `accent-tint` `on-accent`、ダーク（`tokens.dark.css`）の `accent` `accent-soft` | `npm run brand:derive -- --write`（主色の段階・info・status-review・強調行を計算）、`npm run build:mermaid` | 上部バー・注記の状態色。派生を計算すれば主色系のティールは残らない |
 | one-pager | `theme.css` | `accent` `accent-strong` `accent-soft` | `design/neutral.json` を diagrams の `build:themes -- --tokens` から更新（下記） | なし |
-| marp-theme | `themes/forsteri/forsteri.css` | `accent` `accent-strong` `accent-soft` `on-accent` `night-accent-rgb` `night-accent-deep` | なし | **系列色1**（`series-1` `#5eead4`、ティール）、**Nightの背景・面・補足文字**（`night-bg` など、青緑寄り） |
-| slidev-theme | `theme/styles/brand-tokens.css` | `accent` `accent-strong` `accent-soft` `on-accent` `night-accent-rgb` | `npm run brand:sync` | 系列色1、Nightの背景・面・補足文字（marp-theme と同じ） |
-| diagrams | `tokens/*.css`（取り込んだまま変えない） | 描画時に `--tokens brand/tokens.css` で同名の値を上書き（`tokens.dark.css` は渡さない） | なし | `forsteri` テーマの系列色1 |
+| marp-theme | `themes/forsteri/forsteri.css` | `accent` `accent-strong` `accent-soft` `on-accent` `series-1` `night-*`（`night-line` を除く） | なし | 系列色2〜8、`night-line`（白の16%、主色と独立した固定色） |
+| slidev-theme | `theme/styles/brand-tokens.css` | marp-theme と同じ（`night-text-soft` `night-accent-deep` は持たない） | `npm run brand:sync` | marp-theme と同じ |
+| diagrams | `tokens/*.css`（取り込んだまま変えない） | 描画時に `--tokens brand/tokens.css` で同名の値を上書き（`tokens.dark.css` は渡さない）。`forsteri` では `series-1` も変わる | なし | `forsteri` テーマの系列色2〜8 |
 
 diagrams はファイルを書き換えずに、描画のたびにブランド値を渡します。
 
@@ -51,11 +51,19 @@ npm --prefix tools/diagrams run build:themes -- --tokens brand/tokens.css --out 
 cp build/mermaid/neutral.json onepager/design/neutral.json   # One-pager の配色スナップショット
 ```
 
+### 主色といっしょに決める色
+
+主色を変えるときは、`tokens.css` の主色系に加えて次の色もブランドの色相に合わせて決めます。既定値はどれもティール由来です。
+
+- **系列色1（`series-1`）**：主色の明るい版で、スライドのグラフ・スマートアート・Mermaid（diagrams `forsteri`）の先頭色です。系列色2〜8（黄・藍・桃・黄緑・水色・灰）は主色と独立した固定色なので、系列色1はそれらと見分けがつく色にします。たとえば主色がインディゴなら、明るいインディゴは系列色3（`#a5b4fc`）とほぼ同じなので、`--dt-series-3: #5eead4;` も書いて入れ替えます。
+- **Nightパレット（`night-*`）**：Marp・Slidev の `dark` で使う背景・面・文字・アクセントです。背景と面は主色の色相に寄せたごく暗い色、文字は白に主色の色相を少し混ぜた色にすると、既定と同じ雰囲気になります。`night-line`（白の16%）は主色と独立しているので `tokens.css` には載せていません。
+
+`accent-strong` の既定値は全テンプレートで `#0a534d` に揃えています（2026-10-29 まではスライド系だけ `#115e59`）。
+
 ### 既知の穴
 
-- **主色・濃（`accent-strong`）の既定値が2つある。** 文書系（Pandoc・Docusaurus・One-pager・diagrams `neutral`）は `#0a534d`、スライド系（Marp・Slidev・diagrams `forsteri`）は `#115e59` です。`tokens.css` ではコメントにしてあり、ブランドを変えるときに1色に決めます。
-- **系列色1とNightのパレットはティール由来のまま。** 系列色1はティール、Nightの背景・面・補足文字は青緑寄りの暗色で、主色を変えても残ります。主色と独立した固定色として扱うか、ブランド面に加えるかは未決です。直すときは marp-theme・slidev-theme・diagrams の各リポジトリで行います。
 - **Docusaurusのダーク側は `tokens.dark.css` に書く。** ライト側の値から自動では決まりません。
+- **主色といっしょに決める色は自動では決まらない。** 系列色1とNightは手で選びます。主色から計算すると、系列色の他の色とぶつかることがあるためです（上のインディゴの例）。
 
 ## 検査
 
@@ -65,6 +73,7 @@ cp build/mermaid/neutral.json onepager/design/neutral.json   # One-pager の配�
 - 既定の `brand/` を各テンプレートへ当てても何も変わらない
 - 既定の `tokens.css` を diagrams の `build:themes --tokens` に渡すと `themes/*.json` と同じものができ、その `neutral.json` で one-pager の検査が通る
 - ライトとダークが違う別のブランドを当てると、各テンプレートの「当てたあとに実行する」手順と依存なしの検査が通る（pandoc-template の check-tokens、docusaurus-template の brand:derive・build:mermaid・check と主色系にティールが残らないこと、slidev-theme の brand:sync・brand:check、one-pager の check）。diagrams にはライトの値だけが渡り、docusaurus のダーク側にだけダークの値が入る。marp-theme は値が入ったことだけを見る（変換の検査は Marp CLI が要る）
+- 別のブランドを当てると diagrams `forsteri` の系列色1が変わり、Marp・Slidev のトークンブロックに既定のティール系の値が残らない
 - 規則を含む `tokens.css` を `apply.mjs` がエラーにする
 - `scripts/import.mjs` の追加・変更・削除・移動・競合・撤回（`scripts/test-import.mjs`）
 

@@ -2,6 +2,52 @@
   "description": "docs-toolkit-sample で確認した組み合わせ。新しいものを先頭に足す。commit が正本で、tag は目印",
   "sets": [
     {
+      "verified": "2026-10-30",
+      "note": "ブランド面の対応（系列色1・Night・accent-strong の既定値）後の版。サンプルの brand/ を import.mjs update で docs-toolkit の brand/ に取り込み直し、当て直しても全テンプレートで差分が無いことを確認",
+      "sample": {
+        "repo": "https://github.com/forsteri/docs-toolkit-sample.git",
+        "commit": "535bf26ebc5227255925610c208cf69c55f20247"
+      },
+      "repos": {
+        "pandoc-template": {
+          "repo": "https://github.com/forsteri/pandoc-template.git",
+          "commit": "e96127081270bc0ed079f4703294f6150fc9ac13",
+          "tag": "v0.1.0"
+        },
+        "docusaurus-template": {
+          "repo": "https://github.com/forsteri/docusaurus-template.git",
+          "commit": "298e7c676de0f6623ba868e71695f7dd79e52f2a",
+          "tag": "v0.1.0"
+        },
+        "one-pager": {
+          "repo": "https://github.com/forsteri/one-pager.git",
+          "commit": "10c373546ffc92129b5347ad1a2dba6de53935af",
+          "tag": "v0.1.0"
+        },
+        "marp-theme": {
+          "repo": "https://github.com/forsteri/marp-theme.git",
+          "commit": "e05fda06491fd62841df4f90859966b9d00df80a",
+          "tag": null
+        },
+        "slidev-theme": {
+          "repo": "https://github.com/forsteri/slidev-theme.git",
+          "commit": "5865e12fa098a8f796472f984730d783131d26e7",
+          "tag": null
+        },
+        "diagrams": {
+          "repo": "https://github.com/forsteri/diagrams.git",
+          "commit": "55de27cea319328f94ad516812a62ef5e4375b1f",
+          "tag": null
+        },
+        "docs-toolkit": {
+          "repo": "https://github.com/forsteri/docs-toolkit.git",
+          "path": "brand",
+          "commit": "a721c8bcf0778aa41a2e62732fe062273d118561",
+          "tag": null
+        }
+      }
+    },
+    {
       "verified": "2026-10-29",
       "note": "テンプレートは 2026-10-28 と同じ。サンプルの brand/ を docs-toolkit の brand/ から取り込み直し、当て直しても全テンプレートで差分が無いことを確認",
       "sample": {

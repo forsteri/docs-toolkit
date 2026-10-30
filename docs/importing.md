@@ -89,6 +89,7 @@ git diff                                                                        
 | 削除 | 変えた | 利用側の内容を残し、一覧にする（終了コード1） |
 | 追加 | — | 入る。使わないなら消す |
 
+- `brand/tokens.css` は利用側の値を書くファイルなので、上流が既定値を足すと競合します。利用側の値を残し、上流で増えたトークンがあれば自分の値を書き足します（`apply.mjs` が「どのファイルのトークンブロックにもありません」と警告しない名前だけが当たります）。
 - 置き場所に未コミットの変更があると止まります。失敗したら `git checkout -- <置き場所> toolkit-imports.json` で戻せます。
 - 成功すると `toolkit-imports.json` の `commit` と `tag` が新しい版になります。
 
@@ -130,5 +131,7 @@ node ../docs-toolkit/scripts/import.mjs update tools/pandoc-template --to f31adc
 - 全置き場所を記録のコミットへ `update` すると、何も変わらなかった。
 - 実際の履歴で撤回して戻した。slidev-theme eab5fcb → 78698bf → eab5fcb（`sync-brand.mjs` の移動を含む）、pandoc-template e961270 → f31adc5 → e961270（`starters/` などの削除を含む）、docusaurus-template 298e7c6 → d38aa8f → 298e7c6（`derive-brand.mjs` の削除を含む）。どれも戻した結果が元とバイト一致した。
 - docusaurus-template をトークン移行前の版へ戻すと、`src/css/custom.css` が競合として一覧に出て、終了コード1になった。
+
+2026-10-30 には、ブランド面の対応（docs-toolkit a721c8b）を `update brand --to a721c8b` で取り込み直した。`README.md` は差し替わり、`tokens.css` は上流の既定値の追加と Hakobi の値が競合として一覧に出た。Hakobi の値を残して当て直すと全テンプレートで違いが無く、記録は docs-toolkit-sample 535bf26 になった。
 
 追加・変更・削除・移動・競合・撤回の組み合わせは `node scripts/test-import.mjs` で再現でき、`scripts/check.mjs` からも実行されます。
