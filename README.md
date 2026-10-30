@@ -38,20 +38,29 @@ v0.1.0 まではこのリポジトリに6形式が同居していました。v0.
 
 利用プロジェクトへは**コピーで取り込み、取り込み元のコミットを記録**します。手順と記録の書式は [docs/importing.md](docs/importing.md) にあります。
 
-1. 使う形式のリポジトリを、利用プロジェクトの決めた場所（`tools/pandoc-template/` など）へコピーする
-2. 取り込み元のコミットと、利用側で改変したファイルを記録する
-3. [`brand/`](brand/README.md) をコピーし、`tokens.css`（ライト）と `tokens.dark.css`（Docusaurusのダーク）に自分のブランド値を書いて `apply.mjs` で当てる
-4. 取り込み直すときは記録を見て、改変したファイル以外を差し替える。改善はテンプレート側のリポジトリへ戻す
+1. 使う形式のリポジトリを `scripts/import.mjs add` で利用プロジェクトの決めた場所（`tools/pandoc-template/` など）へコピーする。取り込み元のURL・サブフォルダ・完全なSHAが `toolkit-imports.json` に記録される
+2. [`brand/`](brand/README.md) も同じように取り込み、`tokens.css`（ライト）と `tokens.dark.css`（Docusaurusのダーク）に自分のブランド値を書いて `apply.mjs` で当てる
+3. 取り込み直しと撤回は `scripts/import.mjs update` で行う。上流の削除・移動も当たり、利用側の改変は3方向マージで残る
+4. 改善はテンプレート側のリポジトリへ戻す
 
 ## 動作確認済みの組み合わせ
 
-docs-toolkit-sample で全形式の生成を確認した、各リポジトリのコミットです。取り込むときの基準にしてください。
+docs-toolkit-sample で確認した、各リポジトリのコミットです。取り込むときの基準にしてください。正本は機械可読な [`verified.json`](verified.json)（リポジトリURL・完全なSHA・タグ・サンプルのSHA）で、下の表はその先頭の短縮です。
 
-| 確認日 | サンプル | pandoc-template | docusaurus-template | one-pager | marp-theme | slidev-theme | diagrams |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-10-28 | `da6a2aa` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` |
+| 確認日 | サンプル | pandoc-template | docusaurus-template | one-pager | marp-theme | slidev-theme | diagrams | docs-toolkit |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10-30 | `535bf26` | `e961270` | `298e7c6` | `10c3735` | `e05fda0` | `5865e12` | `55de27c` | `a721c8b`（`brand/`） |
+| 2026-10-29 | `6dff849` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` | `aef3903`（`brand/`） |
+| 2026-10-28 | `da6a2aa` | `e961270` | `298e7c6` | `10c3735` | `25e8108` | `eab5fcb` | `58c60b7` | — |
 
-各リポジトリにはまだタグがないため、コミットで記録しています。
+2026-10-28 の行の各コミットには `v0.1.0` のタグがあります（2026-10-30 の marp-theme・slidev-theme・diagrams はタグなし）。記録した組み合わせは、そのSHAのまま取得できます（`--sample` でサンプルも取得）。
+
+```bash
+node scripts/fetch.mjs --into ../toolkit-2026-10-30             # 先頭の組み合わせ
+node scripts/fetch.mjs --into ../toolkit-2026-10-28 --set 2026-10-28
+```
+
+版の付け方は [docs/importing.md の「版」](docs/importing.md#版) にあります。
 
 ## 共通の方針
 
@@ -60,7 +69,7 @@ docs-toolkit-sample で全形式の生成を確認した、各リポジトリの
 - 装飾画像は使わず、線・面・主色だけで構成します。既定の主色はティール `#0f766e` です。
 - 文書・コードコメントは日本語で書きます。
 
-`brand/` と各テンプレートの組み合わせは `node scripts/check.mjs --repos <6リポジトリを並べたフォルダ>` で検査できます（[検査の内容](brand/README.md#検査)）。開発の方向性は [ROADMAP.md](ROADMAP.md) にあります。
+`brand/` と各テンプレートの組み合わせ、版の記録、取り込みの道具は `node scripts/check.mjs` で検査できます。`verified.json` の先頭の組み合わせを記録したSHAで取得して検査し、`--set <確認日>` で別の組み合わせ、`--repos <6リポジトリを並べたフォルダ>` で手元の未マージの変更を検査します（[検査の内容](brand/README.md#検査)）。開発の方向性は [ROADMAP.md](ROADMAP.md) にあります。
 
 ## ライセンス
 
