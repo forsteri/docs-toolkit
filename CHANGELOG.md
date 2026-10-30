@@ -9,6 +9,7 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 - `verified.json`: 動作確認済みの組み合わせを機械可読に記録する（リポジトリURL・完全なSHA・タグ・docs-toolkit-sample のSHA、`brand/` の取得元）。README の表はその先頭の短縮。
 - `scripts/fetch.mjs`: 記録した組み合わせを、記録した完全なSHAのまま取得する。タグが記録と違うコミットを指していれば失敗する。
 - `scripts/import.mjs`: 利用プロジェクトでの取り込み（`add`）、記録のコミットとの突き合わせ（`status`）、取り込み直しと撤回（`update`）。記録は利用側の `toolkit-imports.json` に完全なSHAで残す。上流の削除・移動を当て、利用側の改変は3方向マージで残し、競合を一覧にする。
+- 6リポジトリの 2026-10-28 の確認済みコミットに `v0.1.0` のタグを打ち、`verified.json` に記録。
 - `scripts/test-import.mjs`: `import.mjs` の追加・変更・削除・移動・競合・撤回の検査。
 
 ### 変更
