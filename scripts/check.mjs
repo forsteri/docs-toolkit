@@ -8,6 +8,7 @@
 // 3. そこで作った neutral.json で one-pager の検査が通る
 // 4. 別のブランド（ライトとダークが違う値）でも、diagrams にはライトの値だけが渡り、
 //    one-pager の検査が通り、docusaurus のダーク側にだけダークの値が入る
+// 5. 別のブランドを当てたあと、スライド系（Marp・Slidev・diagrams forsteri）に既定のティール系の値が残らない
 import {spawnSync} from 'node:child_process';
 import {cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
@@ -87,7 +88,10 @@ try {
   writeFileSync(path.join(brand, 'tokens.css'), [
     '--dt-accent: #4338ca;', '--dt-accent-strong: #3730a3;', '--dt-accent-soft: #eef2ff;',
     '--dt-accent-tint: #e0e7ff;', '--dt-on-accent: #ffffff;',
-    '--dt-night-accent-rgb: 165 180 252;', '--dt-night-accent-deep: #1e1b4b;', '',
+    '--dt-series-1: #a5b4fc;', '--dt-series-3: #5eead4;',
+    '--dt-night-accent-rgb: 165 180 252;', '--dt-night-accent-deep: #1e1b4b;',
+    '--dt-night-bg: #0f1024;', '--dt-night-bg-deep: #07071a;', '--dt-night-surface: #1a1b3d;',
+    '--dt-night-text: #f5f5fc;', '--dt-night-text-muted: #a3a6c9;', '--dt-night-text-soft: #c8cae6;', '',
   ].join('\n'));
   writeFileSync(path.join(brand, 'tokens.dark.css'), '--dt-accent: #a5b4fc;\n--dt-accent-soft: #1e1b4b;\n');
 
@@ -114,6 +118,30 @@ try {
       `diagrams にはライトの値だけが渡る（primaryBorderColor ${vars.primaryBorderColor}、primaryColor ${vars.primaryColor}）`);
     const result = onePagerCheck(targets['one-pager'], path.join(brandOut, 'neutral.json'));
     report(result.ok, '別のブランドの theme.css と neutral.json で one-pager の検査が通る', result.output);
+    const series = JSON.parse(readFileSync(path.join(brandOut, 'forsteri.json'), 'utf8')).themeVariables;
+    report(series.cScale0 === '#a5b4fc' && series.activationBkgColor === '#a5b4fc',
+      `diagrams forsteri の系列色1が差し替わる（cScale0 ${series.cScale0}、activationBkgColor ${series.activationBkgColor}）`);
+  }
+
+  // 5. スライド系に既定のティール系の値が残らない。既定の tokens.css にある色（白を除く）をブロック内から探す
+  const defaultColors = [...readFileSync(path.join(root, 'brand/tokens.css'), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .matchAll(/--dt-[\w-]+:\s*([^;]+);/g)]
+    .map((match) => match[1].trim().toLowerCase())
+    .filter((value) => value !== '#ffffff');
+  const block = (text) => text.slice(text.indexOf('@brand-tokens-start'), text.indexOf('@brand-tokens-end'))
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  const leftovers = (text, allowed = []) => [...block(text).matchAll(/(--dt-[\w-]+):\s*([^;]+);/g)]
+    .filter(([, name, value]) => defaultColors.includes(value.trim().toLowerCase()) && !allowed.includes(name))
+    .map(([, name, value]) => `${name}: ${value.trim()}`);
+  // 系列色3は別のブランドで既定の系列色1（ティール）と入れ替えたので、残っていてよい
+  const slideTargets = {
+    'marp-theme': targets['marp-theme'],
+    'slidev-theme': targets['slidev-theme'],
+  };
+  for (const [repo, file] of Object.entries(slideTargets)) {
+    const rest = leftovers(readFileSync(file, 'utf8'), ['--dt-series-3']);
+    report(rest.length === 0, `${repo} に既定のティール系の値が残らない`, rest.join('\n'));
   }
 
   const css = readFileSync(targets['docusaurus-template'], 'utf8');
