@@ -1,0 +1,8 @@
+node_modules/
+build/
+.docusaurus/
+output/
+.playwright-cli/
+.DS_Store
+*.log
+!docs/validation/*.log

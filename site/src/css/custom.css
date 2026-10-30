@@ -1,0 +1,528 @@
+/* @brand-tokens-start */
+/* ブランドの差し替え面。別のブランドへ移植するときは、このブロックの値だけを変更する。 */
+/* 本体は役割名（--dt-*）だけを参照し、色やフォントの値を直接書かない。 */
+/* ダークモードは同じ役割名を [data-theme='dark'] で上書きする。上書きしない役割は両モード共通。 */
+/* 値を変えたら npm run build:mermaid で assets/mermaid/neutral.json を再生成する。 */
+:root {
+  /* 主色 */
+  --dt-accent: #0f766e;
+  --dt-accent-strong: #0a534d; /* サイドバーのホバー・選択中の文字 */
+  --dt-accent-soft: #f0fdfa; /* サイドバーの選択中・レビュー中バッジの背景 */
+  --dt-accent-tint: #ccfbf1; /* accent-soft より一段濃い淡色。Mermaidのアクティベーション面 */
+  --dt-on-accent: #ffffff; /* 塗りの面に載せる文字。Mermaidのシーケンス番号 */
+
+  /* Infimaの主色の段階。Docusaurusの配色ツールで主色から作れる */
+  --dt-accent-dark: #0d6b63;
+  --dt-accent-darker: #0c655d;
+  --dt-accent-darkest: #0a534d;
+  --dt-accent-light: #2a8a82;
+  --dt-accent-lighter: #5eead4;
+  --dt-accent-lightest: #f0fdfa;
+
+  /* 文字・罫線・面 */
+  --dt-heading: #0f1b2a;
+  --dt-text: #16191f;
+  --dt-text-muted: #5f6b7a;
+  --dt-line: #d5dbdb;
+  --dt-bg: #ffffff;
+  --dt-surface: #f7f8f9; /* サイドバー・面の背景 */
+  --dt-surface-strong: #eaeded; /* 表見出し・サイドバーのホバー */
+  --dt-surface-subtle: #fafafa; /* 表の縞 */
+
+  /* 上部バーとフッター（両モード共通） */
+  --dt-header-bg: #182230;
+  --dt-header-text: #ffffff;
+  --dt-header-text-muted: #d1d5db;
+  --dt-header-line: #34465b;
+
+  /* コード */
+  --dt-code-bg: #f2f3f3; /* インラインコード */
+  --dt-code-block-line: #27374a;
+  --dt-code-highlight: rgb(15 118 110 / 12%); /* 強調行。accent の12% */
+
+  /* 注記の状態色。線は両モード共通、-soft は背景、-emphasis は漢字アイコンと見出し */
+  --dt-neutral: #687078; /* note・前提 */
+  --dt-neutral-emphasis: #687078;
+  --dt-info: #0f766e; /* info・決定 */
+  --dt-info-soft: #f0fdfa;
+  --dt-success: #037f0c;
+  --dt-success-soft: #f2f8f3;
+  --dt-warning: #8d6605; /* warning・未決 */
+  --dt-warning-soft: #fff8e5;
+  --dt-warning-emphasis: #8d6605;
+  --dt-danger: #d13212;
+  --dt-danger-soft: #fff1f0;
+
+  /* DocMetaのステータスバッジ（文字・背景）。review は accent-soft、deprecated は danger-soft を背景に使う */
+  --dt-status-draft: #414d5c;
+  --dt-status-draft-soft: #e9ebed;
+  --dt-status-review: #0d6b63;
+  --dt-status-approved: #036b12;
+  --dt-status-approved-soft: #effbf0;
+  --dt-status-deprecated: #ab1d00;
+
+  /* Mermaidのシーケンス図のノート（ライトのみ。ダークはMermaid組み込みのdark） */
+  --dt-note-surface: #fff8df;
+  --dt-note-line: #b08800;
+
+  /* フォント */
+  --dt-font-ja: "LINE Seed JP", "BIZ UDPGothic", -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+  --dt-font-mono: "JetBrains Mono", "BIZ UDGothic", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+[data-theme='dark'] {
+  --dt-accent: #5eead4;
+  --dt-accent-strong: #ffffff;
+  --dt-accent-soft: #173a38;
+
+  --dt-accent-dark: #2dd4bf;
+  --dt-accent-darker: #14b8a6;
+  --dt-accent-darkest: #0d9488;
+  --dt-accent-light: #99f6e4;
+  --dt-accent-lighter: #ccfbf1;
+  --dt-accent-lightest: #e6fffa;
+
+  --dt-heading: #ffffff;
+  --dt-text: #e8eaed;
+  --dt-text-muted: #aab7c4;
+  --dt-line: #3d4f63;
+  --dt-bg: #111821;
+  --dt-surface: #182230;
+  --dt-surface-strong: #26384d;
+  --dt-surface-subtle: #151f2b;
+
+  --dt-code-bg: #26313f;
+  --dt-code-highlight: rgb(255 255 255 / 9%);
+
+  --dt-neutral-emphasis: #aab7c4;
+  --dt-info-soft: #12302e;
+  --dt-success-soft: #18321e;
+  --dt-warning-soft: #352b13;
+  --dt-warning-emphasis: #e0b13e;
+  --dt-danger-soft: #3b211f;
+
+  --dt-status-draft: #d5dbdb;
+  --dt-status-draft-soft: #354150;
+  --dt-status-review: #99f6e4;
+  --dt-status-approved: #86d791;
+  --dt-status-approved-soft: #18321e;
+  --dt-status-deprecated: #ffa493;
+}
+/* @brand-tokens-end */
+
+/* Infima（Docusaurus本体）の変数は名前を残し、値を役割名から引く */
+:root {
+  --ifm-color-primary: var(--dt-accent);
+  --ifm-color-primary-dark: var(--dt-accent-dark);
+  --ifm-color-primary-darker: var(--dt-accent-darker);
+  --ifm-color-primary-darkest: var(--dt-accent-darkest);
+  --ifm-color-primary-light: var(--dt-accent-light);
+  --ifm-color-primary-lighter: var(--dt-accent-lighter);
+  --ifm-color-primary-lightest: var(--dt-accent-lightest);
+  --ifm-background-color: var(--dt-bg);
+  --ifm-background-surface-color: var(--dt-surface);
+  --ifm-font-color-base: var(--dt-text);
+  --ifm-heading-color: var(--dt-heading);
+  --ifm-navbar-background-color: var(--dt-header-bg);
+  --ifm-footer-background-color: var(--dt-header-bg);
+  --ifm-border-color: var(--dt-line);
+  --ifm-toc-border-color: var(--dt-line);
+  --ifm-code-font-size: 90%;
+  --ifm-font-family-base: var(--dt-font-ja);
+  --ifm-font-family-monospace: var(--dt-font-mono);
+  --ifm-heading-font-weight: 700;
+  --ifm-line-height-base: 1.7;
+  --ifm-global-radius: 2px;
+  --ifm-global-shadow-lw: none;
+  --ifm-navbar-shadow: none;
+  --docusaurus-highlighted-code-line-bg: var(--dt-code-highlight);
+}
+
+/* Infimaのダーク既定値より優先させるため、ダーク側でも同じ対応を宣言する */
+[data-theme='dark'] {
+  --ifm-color-primary: var(--dt-accent);
+  --ifm-color-primary-dark: var(--dt-accent-dark);
+  --ifm-color-primary-darker: var(--dt-accent-darker);
+  --ifm-color-primary-darkest: var(--dt-accent-darkest);
+  --ifm-color-primary-light: var(--dt-accent-light);
+  --ifm-color-primary-lighter: var(--dt-accent-lighter);
+  --ifm-color-primary-lightest: var(--dt-accent-lightest);
+  --ifm-background-color: var(--dt-bg);
+  --ifm-background-surface-color: var(--dt-surface);
+  --ifm-font-color-base: var(--dt-text);
+  --ifm-heading-color: var(--dt-heading);
+  --ifm-border-color: var(--dt-line);
+  --ifm-toc-border-color: var(--dt-line);
+  --docusaurus-highlighted-code-line-bg: var(--dt-code-highlight);
+}
+
+html {
+  scroll-padding-top: 4rem;
+}
+
+body {
+  font-size: 16px;
+}
+
+.docusaurus-mermaid-container,
+.docusaurus-mermaid-container > svg {
+  max-width: 100%;
+}
+
+.navbar {
+  min-height: 3.25rem;
+  padding: 0 1.5rem;
+  background: var(--dt-header-bg);
+  border-bottom: 1px solid var(--dt-header-line);
+  box-shadow: none;
+}
+
+.navbar__title,
+.navbar__link,
+.navbar__brand,
+.navbar-sidebar__brand .navbar__title {
+  color: var(--dt-header-text);
+}
+
+.navbar__title {
+  font-size: 0.95rem;
+}
+
+.navbar__link {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--dt-header-text);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.navbar__toggle,
+.navbar-sidebar__close {
+  color: var(--dt-header-text);
+}
+
+.theme-doc-sidebar-container {
+  background: var(--dt-surface);
+  border-right: 1px solid var(--ifm-border-color) !important;
+}
+
+.menu {
+  padding: 1.35rem 0.8rem 2rem;
+  font-size: 0.875rem;
+}
+
+.menu__list-item-collapsible,
+.menu__link {
+  border-radius: 2px;
+}
+
+.menu__link {
+  color: var(--ifm-font-color-base);
+  line-height: 1.45;
+}
+
+.menu__link:hover {
+  color: var(--dt-accent-strong);
+  background: var(--dt-surface-strong);
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  color: var(--dt-accent-strong);
+  background: var(--dt-accent-soft);
+  box-shadow: inset 3px 0 0 var(--dt-accent);
+  font-weight: 700;
+}
+
+.theme-doc-markdown,
+.theme-doc-breadcrumbs,
+.theme-doc-footer,
+.pagination-nav {
+  max-width: 860px;
+}
+
+.theme-doc-markdown {
+  color: var(--ifm-font-color-base);
+}
+
+.theme-doc-markdown > h1:first-child {
+  margin-bottom: 1.35rem;
+  font-size: clamp(2rem, 4vw, 2.65rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+.markdown h2 {
+  margin-top: 2.15em;
+  padding-bottom: 0.34em;
+  border-bottom: 1px solid var(--ifm-border-color);
+  font-size: 1.55rem;
+  letter-spacing: -0.01em;
+}
+
+.markdown h3 {
+  margin-top: 1.85em;
+  font-size: 1.24rem;
+  letter-spacing: -0.01em;
+}
+
+.markdown h4 {
+  margin-top: 1.55em;
+  font-size: 1.05rem;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol,
+.markdown dl,
+.markdown table,
+.markdown pre,
+.markdown blockquote {
+  margin-bottom: 1.1rem;
+}
+
+.markdown li + li {
+  margin-top: 0.3rem;
+}
+
+.table-of-contents {
+  font-size: 0.8rem;
+}
+
+.table-of-contents__link {
+  color: var(--dt-text-muted);
+  line-height: 1.45;
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+}
+
+.breadcrumbs__link {
+  color: var(--dt-text-muted);
+  font-size: 0.8rem;
+}
+
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+.markdown table th,
+.markdown table td {
+  padding: 0.65rem 0.75rem;
+  vertical-align: top;
+  border: 1px solid var(--ifm-border-color);
+}
+
+.markdown table th {
+  color: var(--ifm-heading-color);
+  background: var(--dt-surface-strong);
+  font-weight: 700;
+}
+
+.markdown table tr:nth-child(even) {
+  background: var(--dt-surface-subtle);
+}
+
+.markdown :not(pre) > code {
+  padding: 0.14em 0.45em;
+  color: var(--ifm-font-color-base);
+  background: var(--dt-code-bg);
+  border: 1px solid var(--ifm-border-color);
+  border-radius: 6px;
+}
+
+.prism-code {
+  border: 1px solid var(--dt-code-block-line);
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+
+/* コードは入力した文字をそのまま表示する（JetBrains Monoの合字を無効化） */
+code,
+kbd,
+pre {
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+}
+
+.alert {
+  border: 0;
+  border-left: 4px solid currentColor;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.alert--secondary {
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-surface-color);
+  border-left-color: var(--dt-neutral);
+}
+
+.alert--info {
+  color: var(--ifm-font-color-base);
+  background: var(--dt-info-soft);
+  border-left-color: var(--dt-info);
+}
+
+.alert--success {
+  color: var(--ifm-font-color-base);
+  background: var(--dt-success-soft);
+  border-left-color: var(--dt-success);
+}
+
+.alert--warning {
+  color: var(--ifm-font-color-base);
+  background: var(--dt-warning-soft);
+  border-left-color: var(--dt-warning);
+}
+
+.alert--danger {
+  color: var(--ifm-font-color-base);
+  background: var(--dt-danger-soft);
+  border-left-color: var(--dt-danger);
+}
+
+.markdown table.doc-meta {
+  width: auto;
+  min-width: 340px;
+  margin-bottom: 1.6rem;
+  font-size: 0.88rem;
+}
+
+.markdown table.doc-meta th {
+  width: 8em;
+  text-align: left;
+  font-weight: 700;
+}
+
+.markdown table.doc-meta tr:nth-child(even) {
+  background: transparent;
+}
+
+.doc-meta-badge {
+  display: inline-block;
+  padding: 0.1em 0.7em;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.doc-meta-badge--draft {
+  color: var(--dt-status-draft);
+  background: var(--dt-status-draft-soft);
+}
+
+.doc-meta-badge--review {
+  color: var(--dt-status-review);
+  background: var(--dt-accent-soft);
+}
+
+.doc-meta-badge--approved {
+  color: var(--dt-status-approved);
+  background: var(--dt-status-approved-soft);
+}
+
+.doc-meta-badge--deprecated {
+  color: var(--dt-status-deprecated);
+  background: var(--dt-danger-soft);
+}
+
+.admonition-kanji {
+  display: inline-flex;
+  width: 1.3em;
+  height: 1.3em;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.82em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.alert.alert--info .admonition-kanji,
+.theme-admonition-decision h5 {
+  color: var(--dt-accent);
+}
+
+.alert.alert--warning .admonition-kanji,
+.theme-admonition-pending h5 {
+  color: var(--dt-warning-emphasis);
+}
+
+.alert.alert--secondary .admonition-kanji,
+.theme-admonition-assumption h5 {
+  color: var(--dt-neutral-emphasis);
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--ifm-border-color);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.pagination-nav__link:hover {
+  background: var(--ifm-background-surface-color);
+}
+
+.footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--dt-header-line);
+}
+
+.footer__copyright {
+  color: var(--dt-header-text-muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 996px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  .theme-doc-markdown,
+  .theme-doc-breadcrumbs,
+  .theme-doc-footer,
+  .pagination-nav {
+    max-width: none;
+  }
+}
+
+@media print {
+  .navbar,
+  .theme-doc-sidebar-container,
+  .theme-doc-toc-mobile,
+  .col--3,
+  .pagination-nav,
+  .footer {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    display: block;
+  }
+
+  .theme-doc-markdown {
+    max-width: none;
+    font-size: 10.5pt;
+  }
+
+  .markdown h2,
+  .markdown h3 {
+    break-after: avoid;
+  }
+
+  .markdown table,
+  .markdown pre,
+  .alert {
+    break-inside: avoid;
+  }
+}

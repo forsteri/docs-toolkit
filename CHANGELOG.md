@@ -4,6 +4,10 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ## [Unreleased]
 
+### 追加
+
+- `site/`: docs-toolkit 群の説明サイト（Docusaurus、docusaurus-template `298e7c6` を取り込み）。全体像・リポジトリの役割・形式ごとの使い方・取り込み方・ブランド・ロードマップに加え、AIに作業を説明させるときの決まり（`docs/explaining.md`）と、One-pager で1枚にした変更の説明（`static/explain/`）を載せる。
+
 ### 変更
 
 - `brand/tokens.css` に系列色1（`--dt-series-1`）とスライドの Night パレット（`--dt-night-*`）を加え、主色を変えたときにティールが残らないようにした。`--dt-accent-strong` はコメントを外し、全テンプレートで揃えた既定値 `#0a534d` にした（marp-theme・slidev-theme・diagrams の `forsteri` は `#115e59` から変更）。
