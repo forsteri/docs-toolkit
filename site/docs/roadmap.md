@@ -12,13 +12,12 @@ description: docs-toolkit 群の現状と次の作業です。
 
 ## ここまで
 
-```mermaid
-flowchart LR
-  a[6リポジトリへ分割] --> b[トークンを役割名へ<br/>差分ゼロで移行] --> c[架空案件で試用<br/>改善15件を反映] --> d[入口リポジトリ化<br/>brand/ と検査] --> e[ブランド面の穴を埋める<br/>系列色1・Night]
-  e --> f[説明に使い始める<br/>変更の説明・このサイト]
-  classDef emphasis stroke-width:3px,font-weight:700
-  class f emphasis
-```
+1. 6リポジトリへ分割した
+2. 色とフォントを役割名のトークンへ移した（全サンプルの描画が差分ゼロ）
+3. 架空の案件（Hakobi Track）で試し、見つかった改善15件を反映した
+4. docs-toolkit を入口リポジトリにし、`brand/` と横断の検査を置いた
+5. ブランド面の穴（系列色1・Night）を埋めた
+6. **説明に使い始めた**：変更の説明の型と、このサイト
 
 ## 次の作業
 
