@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>取り込みと版の記録を道具にする（docs-toolkit #17）</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>取り込みと版の記録を道具にする</h1>
+    <p class="lead">手でコピーして手で書いていた取り込みの記録を、<mark>コマンド1つで作り、取り込み直し・撤回までできる</mark>ようにする。テンプレート6つの中身は変わらない。</p>
+    <p>docs-toolkit #17 と docs-toolkit-sample #2（2026-10-30 時点）</p>
+  </header>
+
+  <section class="section">
+    <h2>何が変わるか</h2>
+    <div class="columns three">
+      <div class="card">
+        <h3>今</h3>
+        <p>テンプレートを手でコピーし、短いSHAを表に手書きする。取り込み直しは差分を見て手で差し替える。</p>
+      </div>
+      <div class="card key">
+        <h3>マージ後</h3>
+        <p><code>import.mjs</code> が取り込み・改変の一覧・取り込み直し・撤回を行い、記録を完全なSHAで残す。確認済みの組み合わせは <code>verified.json</code> に載る。</p>
+      </div>
+      <div class="card">
+        <h3>戻すとき</h3>
+        <p>2本のマージを取り消せば元に戻る。打ったタグ <code>v0.1.0</code> はそのまま残る。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>確かめたことと、確かめていないこと</h2>
+    <div class="columns">
+      <div class="card">
+        <h3>確かめた</h3>
+        <ul>
+          <li>追加・移動・削除・競合・撤回の13通りが検査で通る</li>
+          <li>サンプルで実際の履歴を3リポジトリ分撤回して戻し、元とバイト一致</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>確かめていない</h3>
+        <ul>
+          <li>サンプル以外の実案件での取り込み直し</li>
+          <li>社内GitLabへ移したときの取得元URLの付け替え</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>判断のために見るところ</h2>
+    <ol class="flow">
+      <li>
+        <h3>READMEの表</h3>
+        <p>「動作確認済みの組み合わせ」の3行。取り込む基準として読めるか。</p>
+      </li>
+      <li class="key">
+        <h3>取り込み直しの表</h3>
+        <p><code>docs/importing.md</code> の7行。自分の改変が消えない動きになっているか。</p>
+      </li>
+      <li>
+        <h3>マージの順番</h3>
+        <p>サンプル #2 をマージコミットで先に、次に #17。記録したSHAが残る。</p>
+      </li>
+    </ol>
+  </section>
+
+  <div class="callout">決めてほしいことは1つ。この順番でマージしてよいか。推奨はマージ。困ったら2本とも取り消せば戻る。</div>
+</body>
+</html>

@@ -11,6 +11,7 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 - `scripts/import.mjs`: 利用プロジェクトでの取り込み（`add`）、記録のコミットとの突き合わせ（`status`）、取り込み直しと撤回（`update`）。記録は利用側の `toolkit-imports.json` に完全なSHAで残す。上流の削除・移動を当て、利用側の改変は3方向マージで残し、競合を一覧にする。
 - 6リポジトリの 2026-10-28 の確認済みコミットに `v0.1.0`、ブランド面の対応後の marp-theme・slidev-theme・diagrams に `v0.2.0` のタグを打ち、`verified.json` に記録。
 - `scripts/test-import.mjs`: `import.mjs` の追加・変更・削除・移動・競合・撤回の検査。
+- `site/`: docs-toolkit 群の説明サイト（Docusaurus、docusaurus-template `298e7c6` を取り込み）。全体像・リポジトリの役割・形式ごとの使い方・取り込み方・ブランド・ロードマップに加え、AIに作業を説明させるときの決まり（`docs/explaining.md`）と、One-pager で1枚にした変更の説明（`static/explain/`）を載せる。
 
 ### 変更
 
