@@ -6,7 +6,7 @@ description: docs-toolkit 自身の変更を One-pager で1枚に説明したも
 
 # 変更の説明
 
-docs-toolkit 群の変更を、承認する前に One-pager の「変更の説明」の型で1枚にまとめたものです。書き方の決まりは[AIに説明させる](./explaining.md)にあります。
+docs-toolkit 群の変更を、承認する前に One-pager の「変更の説明」の型で1枚にまとめたものです。書き方は[AIに説明させる（使い方の例）](./explaining.md)にあります。
 
 | 日付 | 変更 | 判断してほしいこと | 状態 |
 | --- | --- | --- | --- |
