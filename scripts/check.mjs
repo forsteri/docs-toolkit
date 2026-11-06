@@ -12,8 +12,10 @@
 //    依存なしの検査が通る。diagrams にはライトの値だけが渡り、docusaurus のダーク側にだけダークの値が入る。
 //    スライド系（Marp・Slidev・diagrams forsteri）に既定のティール系の値が残らない
 // 5. scripts/import.mjs の検査（scripts/test-import.mjs）が通る
+// 6. 既定値と brand/presets/ の各プリセットで、文字と背景のコントラスト比が基準を満たす（brand/contrast.mjs）。
+//    基準を満たさない色を当てると contrast.mjs が失敗する（陰性対照）
 import {spawnSync} from 'node:child_process';
-import {cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -38,6 +40,11 @@ let failures = 0;
 let repos;
 // 検査に使う brand/。組み合わせに docs-toolkit の brand/ が記録されていればそれを、無ければこのリポジトリのものを使う
 let brandRoot = path.join(root, 'brand');
+// コントラストの検査とプリセットは、組み合わせの記録にかかわらずこのリポジトリのものを使う
+const contrastScript = path.join(root, 'brand/contrast.mjs');
+const presetsDir = path.join(root, 'brand/presets');
+// Marp・Slidev・diagrams forsteri のフッター文字（--dt-text-subtle #9ca3af、白地で 2.54:1）は既知の穴として検査から外す
+const knownLowContrast = ['--skip', 'text-subtle'];
 
 function run(command, args, cwd = root) {
   const result = spawnSync(command, args, {cwd, encoding: 'utf8'});
@@ -137,6 +144,8 @@ try {
   const files = Object.entries(templates).flatMap(([repo, list]) => list.map((file) => path.join(repos, repo, file)));
   const defaults = run('node', [path.join(brandRoot, 'apply.mjs'), '--check', ...files]);
   report(defaults.ok && !defaults.output.includes('警告'), '既定の brand/ を当てても各テンプレートは変わらない', defaults.output);
+  const defaultContrast = run('node', [contrastScript, ...knownLowContrast, ...files]);
+  report(defaultContrast.ok, '既定値で文字と背景のコントラスト比が基準を満たす（文字 4.5、線 3）', defaultContrast.output);
 
   // 2. diagrams に既定の tokens.css を渡す
   const defaultOut = path.join(work, 'default-themes');
@@ -250,6 +259,43 @@ try {
   writeFileSync(path.join(brand, 'tokens.css'), "--dt-accent: #4338ca;\n[data-theme='dark'] { --dt-accent: #a5b4fc; }\n");
   const rejected = run('node', [path.join(brand, 'apply.mjs'), '--check', targets[0]]);
   report(!rejected.ok && rejected.output.includes('規則'), '規則を含む tokens.css は apply.mjs がエラーにする');
+
+  // 6. プリセット。当てて各テンプレートの「当てたあとに実行する」手順を通し、コントラストを見る
+  const presets = existsSync(presetsDir) ? readdirSync(presetsDir).filter((name) => /^[\w-]+\.css$/.test(name) && !name.endsWith('.dark.css')) : [];
+  for (const preset of presets) {
+    const presetFile = path.join(presetsDir, preset);
+    const dir = path.join(work, 'presets', preset);
+    const presetTargets = [];
+    const presetCopies = {};
+    for (const [repo, list] of Object.entries(templates)) {
+      if (repo === 'diagrams') continue;
+      presetCopies[repo] = copyRepo(repo, path.join(dir, repo));
+      presetTargets.push(...list.map((file) => path.join(presetCopies[repo], file)));
+    }
+    const steps = [
+      run('node', [path.join(root, 'brand/apply.mjs'), '--tokens', presetFile, ...presetTargets]),
+      run('node', ['scripts/derive-brand.mjs', '--write'], presetCopies['docusaurus-template']),
+      run('node', ['scripts/build-mermaid-theme.mjs'], presetCopies['docusaurus-template']),
+      run('node', ['scripts/check-tokens.mjs'], presetCopies['docusaurus-template']),
+      run('node', ['scripts/check-tokens.mjs'], presetCopies['pandoc-template']),
+      run('node', ['theme/scripts/sync-brand.mjs'], presetCopies['slidev-theme']),
+      buildThemes(presetFile, path.join(dir, 'themes')),
+    ];
+    const warned = steps[0].output.includes('警告');
+    report(steps.every((result) => result.ok) && !warned, `プリセット ${preset}: 当てたあとの手順と各テンプレートの検査が通り、どのブロックにも無い名前が無い`,
+      steps.map((result) => onlyFailures(result.output)).join('\n'));
+    const presetContrast = run('node', [contrastScript, ...knownLowContrast, ...presetTargets]);
+    report(presetContrast.ok, `プリセット ${preset}: 文字と背景のコントラスト比が基準を満たす（Docusaurus はダークも）`, presetContrast.output);
+  }
+  report(presets.length > 0, `brand/presets/ にプリセットがある（${presets.join('、') || 'なし'}）`);
+
+  // 陰性対照: 白地で 1.5:1 の淡い主色を当てると contrast.mjs が失敗する
+  const pale = path.join(work, 'pale.css');
+  writeFileSync(pale, '--dt-accent: #5eead4;\n');
+  const paleCopy = copyRepo('one-pager', path.join(work, 'one-pager-pale'));
+  run('node', [path.join(root, 'brand/apply.mjs'), '--tokens', pale, path.join(paleCopy, 'theme.css')]);
+  const paleContrast = run('node', [contrastScript, path.join(paleCopy, 'theme.css')]);
+  report(!paleContrast.ok && paleContrast.output.includes('--dt-accent #5eead4'), '陰性対照: 淡い主色（#5eead4）を当てるとコントラストの検査が失敗する', paleContrast.output);
 
   // 5. 取り込みの道具
   const imports = run('node', [path.join(root, 'scripts/test-import.mjs')]);

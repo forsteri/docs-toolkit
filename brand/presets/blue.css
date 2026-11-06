@@ -1,0 +1,43 @@
+/* 青系のプリセット。デジタル庁デザインシステムのデザイントークン（@digital-go-jp/design-tokens 2.1.0、MIT）の
+   色を役割名に割り当てたもの。デジタル庁が作成・確認したものではない。使い方は brand/README.md の「プリセット」。 */
+/* tokens.css と違い、主色系に加えて文字・罫線・面・注記の状態色も入れ替える。上部バー・コード面・フォントは変えない。 */
+
+/* 主色。キーカラー（Blue）の階調から */
+--dt-accent: #0017c1; /* blue-900 */
+--dt-accent-strong: #00118f; /* blue-1000 */
+--dt-accent-soft: #e8f1fe; /* blue-50 */
+--dt-accent-tint: #c5d7fb; /* blue-200 */
+--dt-on-accent: #ffffff;
+
+/* 文字・罫線・面。無彩色のグレー（solid-gray）から */
+--dt-heading: #1a1a1a; /* gray-900 */
+--dt-text: #333333; /* gray-800 */
+--dt-text-soft: #4d4d4d; /* gray-700 */
+--dt-text-muted: #666666; /* gray-600 */
+--dt-line: #cccccc; /* gray-200。装飾の罫線 */
+--dt-line-strong: #949494; /* gray-420。白地でちょうど 3:1 */
+--dt-surface: #f2f2f2; /* gray-50 */
+--dt-surface-strong: #e6e6e6; /* gray-100 */
+--dt-bg: #ffffff;
+
+/* 注記の状態色。セマンティックカラーの濃い方（-2）と、同じ色相の 50 */
+--dt-success: #197a4b; /* success-2 (green-800) */
+--dt-success-soft: #e6f5ec; /* green-50 */
+--dt-warning: #927200; /* warning-yellow-2 (yellow-900) */
+--dt-warning-soft: #fbf5e0; /* yellow-50 */
+--dt-danger: #ce0000; /* error-2 (red-900) */
+--dt-danger-soft: #fdeeee; /* red-50 */
+
+/* 系列色1は主色の明るい版（blue-300）。系列色3（藍 #a5b4fc）と近いので、系列色3を既定の系列色1（ティール）と入れ替える */
+--dt-series-1: #9db7f9;
+--dt-series-3: #5eead4;
+
+/* スライドの Night（ダーク）。DADS にダークの定義は無いので、blue-300 を主色にして青に寄せた暗色で作った */
+--dt-night-accent-rgb: 157 183 249; /* #9db7f9 */
+--dt-night-accent-deep: #0c1a4d;
+--dt-night-bg: #0b1024;
+--dt-night-bg-deep: #050816;
+--dt-night-surface: #141b3a;
+--dt-night-text: #f5f7fd;
+--dt-night-text-muted: #a3acc9;
+--dt-night-text-soft: #c8cee6;
