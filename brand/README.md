@@ -7,6 +7,8 @@
 | `tokens.css` | ライトのブランド値の雛形。値はテンプレートの既定（主色ティール）の写しなので、そのまま当てても何も変わらない。diagrams の `--tokens` にもこのファイルを渡す |
 | `tokens.dark.css` | Docusaurus のダークモードの値の雛形。docusaurus-template にだけ当たる |
 | `apply.mjs` | `tokens.css` の値を、指定したファイルのトークンブロック内の同名トークンへ書き込む。依存なし、Node.js 20以上 |
+| `contrast.mjs` | 当てたあとのトークンブロックで、文字と背景のコントラスト比を確かめる。依存なし |
+| `presets/` | そのまま当てられる配色の見本。いまは `blue.css`（青系）と `blue.dark.css` |
 
 ## 使い方
 
@@ -23,12 +25,41 @@ node brand/apply.mjs tools/pandoc-template/styles/document.css docs-site/src/css
 
 - どちらのファイルも、規則（`{ }`）で囲まない宣言の並びで書きます。diagrams の `--tokens` は同名の宣言を後勝ちで読むので、ライトとダークを1つのファイルに混ぜるとダークの値が図に入ってしまいます。`apply.mjs` は規則を含むファイルをエラーにします。
 - `tokens.css` の値は、ブロック内で最初に現れる同名の宣言（ライト側）へ当てます。
-- `tokens.dark.css` の値は、ブロック内の `[data-theme='dark'] { }` の規則へ当てます。この規則を持つのはDocusaurusだけで、ほかのテンプレートでは使いません。`tokens.css` と同じフォルダにあれば自動で読みます（`--dark-tokens <file>` で別の場所も指定できます）。
+- `tokens.dark.css` の値は、ブロック内の `[data-theme='dark'] { }` の規則へ当てます。この規則を持つのはDocusaurusだけで、ほかのテンプレートでは使いません。ライトの値のファイル名の拡張子の前に `.dark` を入れたファイル（`tokens.css` なら `tokens.dark.css`、`presets/blue.css` なら `presets/blue.dark.css`）があれば自動で読みます（`--dark-tokens <file>` で別の場所も指定できます）。
 - テンプレートのブロックに無い名前は無視します。どのファイルにも無い名前は警告するので、綴りの誤りに気づけます。
 - ライトの値を別の場所に置くときは `--tokens <file>` で指定します（省略時は `apply.mjs` と同じフォルダの `tokens.css`）。
 - 値を変えたトークンだけを書き換えます。コメントや並び順はそのまま残ります。
 
 `--check` は、取り込み直したあとにブランド値が当たっているかの確認にも使えます。
+
+## プリセット
+
+`presets/` には、そのまま当てられる配色を置いています。自分のブランド色がまだ無いときや、見た目の方向を比べたいときに使います。気に入ったら `tokens.css` へ写して育てます。
+
+```bash
+node brand/apply.mjs --tokens brand/presets/blue.css <テンプレートのCSS>...   # blue.dark.css も一緒に読む
+```
+
+当てたあとは、`tokens.css` のときと同じく「当てたあとに実行する」手順（下の表）を実行します。diagrams には `--tokens brand/presets/blue.css` を渡します。
+
+| プリセット | 見た目 | 変える範囲 |
+| --- | --- | --- |
+| `blue.css` | 濃い青の主色、無彩色のグレー、行政サイトに近い落ち着いた配色 | `tokens.css` の範囲に加えて、文字・罫線・面・注記の状態色。上部バー・コード面・フォントは変えない |
+
+`blue.css` の色は、デジタル庁デザインシステムのデザイントークン（[@digital-go-jp/design-tokens](https://github.com/digital-go-jp/design-tokens) 2.1.0、MIT License、Copyright (c) 2023 デジタル庁）の値を役割名に割り当てたものです。デジタル庁が作成・確認したものではありません。系列色1・Night・Docusaurus のダークは DADS に定義が無いので、同じ青の階調から作りました。
+
+## コントラストの検査
+
+`contrast.mjs` は、当てたあとのトークンブロックの値で、文字と背景のコントラスト比を確かめます。自分のブランド色を当てたときに、読みにくい組み合わせへすぐ気づけます。
+
+```bash
+node brand/contrast.mjs tools/pandoc-template/styles/document.css docs-site/src/css/custom.css onepager/theme.css
+```
+
+- 文字は 4.5:1 以上（WCAG 2.x の AA。大きい文字の緩和は使いません。デジタル庁デザインシステムも同じ扱いです）、注記の左線のような文字でない部品は 3:1 以上を求めます。`--min <比>` で文字の基準を変えられます。
+- 見るのは、本文・見出し・リンク・補足の文字と背景、塗りの上の文字、注記・バッジ・上部バー・コードの文字と面、スライドの Night の文字と背景の組み合わせです。装飾の罫線（`line`）や系列色は見ません。
+- Docusaurus は、ライトの値にダークの規則の値を重ねて、ダークも別に見ます。
+- 分かっていて残す組み合わせは `--skip <役割名>` で外せます。
 
 ## ブランド面の範囲
 
@@ -63,6 +94,7 @@ cp build/mermaid/neutral.json onepager/design/neutral.json   # One-pager の配�
 ### 既知の穴
 
 - **Docusaurusのダーク側は `tokens.dark.css` に書く。** ライト側の値から自動では決まりません。
+- **スライドのフッター文字が薄い。** Marp・Slidev・diagrams `forsteri` の `--dt-text-subtle`（`#9ca3af`）は白地で 2.54:1 です。横断検査ではこの名前を外しています。
 - **主色といっしょに決める色は自動では決まらない。** 系列色1とNightは手で選びます。主色から計算すると、系列色の他の色とぶつかることがあるためです（上のインディゴの例）。
 
 ## 検査
@@ -74,6 +106,7 @@ cp build/mermaid/neutral.json onepager/design/neutral.json   # One-pager の配�
 - 既定の `tokens.css` を diagrams の `build:themes --tokens` に渡すと `themes/*.json` と同じものができ、その `neutral.json` で one-pager の検査が通る
 - ライトとダークが違う別のブランドを当てると、各テンプレートの「当てたあとに実行する」手順と依存なしの検査が通る（pandoc-template の check-tokens、docusaurus-template の brand:derive・build:mermaid・check と主色系にティールが残らないこと、slidev-theme の brand:sync・brand:check、one-pager の check）。diagrams にはライトの値だけが渡り、docusaurus のダーク側にだけダークの値が入る。marp-theme は値が入ったことだけを見る（変換の検査は Marp CLI が要る）
 - 別のブランドを当てると diagrams `forsteri` の系列色1が変わり、Marp・Slidev のトークンブロックに既定のティール系の値が残らない
+- 既定値と `presets/` の各プリセットで、コントラストの検査が通る（`--dt-text-subtle` を除く）。プリセットは当てたあとの各テンプレートの手順と検査も通す。淡い主色を当てると検査が失敗する（陰性対照）
 - 規則を含む `tokens.css` を `apply.mjs` がエラーにする
 - `scripts/import.mjs` の追加・変更・削除・移動・競合・撤回（`scripts/test-import.mjs`）
 

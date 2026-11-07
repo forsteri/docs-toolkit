@@ -3,7 +3,8 @@
 //
 // 使い方: node brand/apply.mjs [--tokens <file>] [--dark-tokens <file>] [--check] <テンプレートのCSS>...
 //   --tokens       ライトの値。省略時はこのスクリプトと同じフォルダの tokens.css
-//   --dark-tokens  Docusaurus のダークの値。省略時はライトの値と同じフォルダの tokens.dark.css（無ければ使わない）
+//   --dark-tokens  Docusaurus のダークの値。省略時はライトの値の拡張子の前に .dark を入れたファイル
+//                  （tokens.css なら tokens.dark.css、presets/blue.css なら presets/blue.dark.css。無ければ使わない）
 //   --check        書き込まず、値が違うトークンを表示する。違いがあれば終了コード1
 //
 // ブランド値のファイルは、どちらも規則で囲まない宣言の並びで書く（diagrams の --tokens と同じ形）。
@@ -35,7 +36,7 @@ if (files.length === 0) {
   process.exit(2);
 }
 const lightFile = options['--tokens'] ?? path.join(path.dirname(fileURLToPath(import.meta.url)), 'tokens.css');
-const darkFile = options['--dark-tokens'] ?? path.join(path.dirname(lightFile), 'tokens.dark.css');
+const darkFile = options['--dark-tokens'] ?? lightFile.replace(/(\.css)?$/, '.dark.css');
 
 // 規則で囲まない宣言の並びを読む。規則があると diagrams の --tokens が同名を後勝ちで読んでしまうので受け付けない
 function readTokens(file) {

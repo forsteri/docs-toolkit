@@ -28,3 +28,14 @@ node brand/apply.mjs tools/pandoc-template/styles/document.css docs-site/src/css
 系列色1と Night は主色から自動では決まりません。主色から計算すると系列色のほかの色とぶつかることがあるためです。
 
 既定の主色はティール `#0f766e` です。取り込みの実例（docs-toolkit-sample）ではインディゴ `#4338ca` に差し替えています。
+
+## プリセットとコントラストの検査
+
+自分のブランド色がまだ無いときは、`brand/presets/` の配色をそのまま当てられます。いまは青系の `blue.css` があり、デジタル庁デザインシステムのデザイントークン（MIT）の色を役割名に割り当てたものです。
+
+```bash
+node brand/apply.mjs --tokens brand/presets/blue.css tools/pandoc-template/styles/document.css onepager/theme.css
+node brand/contrast.mjs tools/pandoc-template/styles/document.css onepager/theme.css
+```
+
+`contrast.mjs` は、当てたあとの文字と背景のコントラスト比が 4.5:1（注記の線などは 3:1）を満たすかを確かめます。ブランド色を変えたら一緒に流すと、読みにくい組み合わせにすぐ気づけます。

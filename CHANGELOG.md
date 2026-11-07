@@ -6,6 +6,9 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ### 追加
 
+- `brand/presets/blue.css`・`blue.dark.css`: 青系のプリセット。デジタル庁デザインシステムのデザイントークン（@digital-go-jp/design-tokens 2.1.0、MIT）の色を役割名に割り当て、主色・文字・罫線・面・注記の状態色・系列色1・Night・Docusaurus のダークまで揃えた。
+- `brand/contrast.mjs`: 当てたあとのトークンブロックで、文字と背景のコントラスト比（文字 4.5、部品 3）を確かめる。Docusaurus はダークも見る。
+- `scripts/check.mjs`: 既定値とプリセットのコントラスト、プリセットを当てたあとの各テンプレートの手順と検査、淡い主色での陰性対照を検査する。
 - `verified.json`: 動作確認済みの組み合わせを機械可読に記録する（リポジトリURL・完全なSHA・タグ・docs-toolkit-sample のSHA、`brand/` の取得元）。README の表はその先頭の短縮。
 - `scripts/fetch.mjs`: 記録した組み合わせを、記録した完全なSHAのまま取得する。タグが記録と違うコミットを指していれば失敗する。
 - `scripts/import.mjs`: 利用プロジェクトでの取り込み（`add`）、記録のコミットとの突き合わせ（`status`）、取り込み直しと撤回（`update`）。記録は利用側の `toolkit-imports.json` に完全なSHAで残す。上流の削除・移動を当て、利用側の改変は3方向マージで残し、競合を一覧にする。
@@ -15,6 +18,7 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ### 変更
 
+- `brand/apply.mjs`: ダークの値のファイルを、ライトの値のファイル名から探すようにした（`presets/blue.css` なら `presets/blue.dark.css`）。`tokens.css` → `tokens.dark.css` はこれまでどおり。
 - `brand/tokens.css` に系列色1（`--dt-series-1`）とスライドの Night パレット（`--dt-night-*`）を加え、主色を変えたときにティールが残らないようにした。`--dt-accent-strong` はコメントを外し、全テンプレートで揃えた既定値 `#0a534d` にした（marp-theme・slidev-theme・diagrams の `forsteri` は `#115e59` から変更）。
 - `scripts/check.mjs`: 別のブランドを当てたあと、diagrams `forsteri` の系列色1が変わること、Marp・Slidev のトークンブロックに既定のティール系の値が残らないことを検査する。
 - `scripts/check.mjs`: 既定で `verified.json` の先頭の組み合わせを取得して検査するようにした（`--set`、従来の `--repos` も使える）。記録と README の一致、別のブランドを当てたあとの各テンプレートの手順と検査（pandoc-template・docusaurus-template・slidev-theme）、`import.mjs` の検査を加えた。

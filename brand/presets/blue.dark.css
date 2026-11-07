@@ -1,0 +1,3 @@
+/* blue.css の Docusaurus ダークモード用。apply.mjs が blue.css と一緒に読む。 */
+--dt-accent: #9db7f9; /* blue-300 */
+--dt-accent-soft: #14204a;
