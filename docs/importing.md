@@ -24,6 +24,7 @@ node ../docs-toolkit/scripts/import.mjs add brand \
 - 基準にするコミットは、README の「動作確認済みの組み合わせ」（正本は [`verified.json`](../verified.json)）から選びます。
 - 置き場所は利用プロジェクトが決めます。docs-toolkit-sample では、手を入れずに使う道具は `tools/` に、利用側の本文と一体で育てるもの（Docusaurusサイト・スライド・One-pager）はそれぞれの置き場所（`docs-site/` など）に置いています。
 - 取り込んだら、各リポジトリの README にある案内（docusaurus-template なら「取り込んだら最初にやること」）に沿って片付け、検査コマンドを通します。使わないファイル（記入例や検証記録など）は消してかまいません。消したことは記録の突き合わせで分かります。
+- Windows では、コピーしたファイルに実行権限（`scripts/*.sh` など）が付きません。`import.mjs` が案内する `git add --chmod=+x -- <ファイル>` を実行してからコミットします。付け忘れると、macOS / Linux でそのスクリプトを直接実行できず、`status` にも改変として出ます。
 - ブランド値は [`brand/`](../brand/README.md) で当てます。テンプレートのCSSを手で書き換えるより、取り込み直しのときに競合が小さく済みます。
 
 ## 記録する
