@@ -24,6 +24,10 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 - `scripts/check.mjs`: 既定で `verified.json` の先頭の組み合わせを取得して検査するようにした（`--set`、従来の `--repos` も使える）。記録と README の一致、別のブランドを当てたあとの各テンプレートの手順と検査（pandoc-template・docusaurus-template・slidev-theme）、`import.mjs` の検査を加えた。
 - `docs/importing.md`: `import.mjs` を使う手順に書き直し、取り込み直しの場合分け、撤回、版の付け方、docs-toolkit-sample で確かめたことを追記。
 
+### 修正
+
+- `scripts/import.mjs`: 実行権限をファイルシステムで扱えない作業ツリー（Windows、`core.filemode=false`）で、実行権限の付いたファイル（`*.sh` など）を `status`・`update` が利用側の改変と誤って一覧にしていた。利用側のインデックスの実行権限を写して比べるようにした。`add`・`update` では、実行権限が落ちたファイルと `git add --chmod=+x` のコマンドを案内する。
+
 ## [0.2.0] - 2026-10-28
 
 6形式を形式ごとのリポジトリに分割し、このリポジトリは索引と共通のブランド道具だけを持つ入口にした。各形式の以後の変更は分割先のリポジトリで管理する。

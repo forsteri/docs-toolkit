@@ -3,7 +3,7 @@
 //
 // 使い方: node scripts/test-import.mjs
 import {spawnSync} from 'node:child_process';
-import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -152,6 +152,37 @@ try {
   write(consumer, {'tools/template/local.md': '書きかけ\n'});
   result = importTool('update', 'tools/template', '--to', 'main');
   report(!result.ok && result.output.includes('未コミット'), 'update: 置き場所に未コミットの変更があると止まる', result.output);
+
+  // 実行権限: core.filemode=false の作業ツリー（Windows と同じ）でも、実行権限を改変と見なさず、落ちたものを案内する
+  const modeUpstream = path.join(work, 'mode-upstream');
+  const modeConsumer = path.join(work, 'mode-consumer');
+  mkdirSync(modeUpstream);
+  git(modeUpstream, 'init', '--quiet', '-b', 'main');
+  write(modeUpstream, {'run.sh': '#!/usr/bin/env bash\necho run\n', 'notes.md': 'メモ\n'});
+  git(modeUpstream, 'add', '-A');
+  git(modeUpstream, 'update-index', '--chmod=+x', 'run.sh');
+  git(modeUpstream, 'commit', '--quiet', '-m', 'v1');
+  mkdirSync(modeConsumer);
+  git(modeConsumer, 'init', '--quiet', '-b', 'main');
+  git(modeConsumer, 'config', 'core.filemode', 'false');
+  const runIn = (...args) => run('node', [importer, ...args], modeConsumer);
+  result = runIn('add', 'tools/mode', '--repo', modeUpstream, '--to', 'main');
+  report(result.ok && result.output.includes('git add --chmod=+x -- tools/mode/run.sh') && !result.output.includes('notes.md'),
+    'add: core.filemode=false では、実行権限が必要なファイルを案内する', result.output);
+  git(modeConsumer, 'add', '-A');
+  git(modeConsumer, 'add', '--chmod=+x', '--', 'tools/mode/run.sh');
+  git(modeConsumer, 'commit', '--quiet', '-m', '取り込み');
+  result = runIn('status');
+  report(result.ok && /利用側の改変: なし/.test(result.output),
+    'status: core.filemode=false でも、インデックスの実行権限を改変と見なさない', result.output);
+  // 陰性対照: 実行権限を付けずにコミットすると改変として出る（macOS/Linux ではファイルの権限も外して揃える）
+  runIn('add', 'tools/again', '--repo', modeUpstream, '--to', 'main');
+  chmodSync(path.join(modeConsumer, 'tools/again/run.sh'), 0o644);
+  git(modeConsumer, 'add', '-A');
+  git(modeConsumer, 'commit', '--quiet', '-m', '実行権限を付けずに取り込み');
+  result = runIn('status', 'tools/again');
+  report(result.ok && /変更\s+run\.sh/.test(result.output),
+    'status: 実行権限を付け忘れたファイルは改変として出る（陰性対照）', result.output);
 } finally {
   rmSync(work, {recursive: true, force: true});
 }

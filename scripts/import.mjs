@@ -115,6 +115,29 @@ function localFiles(dest) {
     .map((file) => file.slice(dest.length + 1));
 }
 
+// 実行権限をファイルシステムで扱えるか（Windows では clone すると core.filemode=false になる）
+function tracksFileMode(dir) {
+  return git(['config', '--bool', 'core.filemode'], dir, {allowFail: true}).out.trim() !== 'false';
+}
+// インデックスで実行権限の付いたファイル（dest を渡すと、その下を dest からの相対パスで返す）
+function executables(dir, dest = '') {
+  return git(['ls-files', '-s', '-z', '--', ...(dest ? [dest] : [])], dir).out.split('\0').filter(Boolean)
+    .filter((line) => line.startsWith('100755 '))
+    .map((line) => line.slice(line.indexOf('\t') + 1))
+    .map((file) => (dest ? file.slice(dest.length + 1) : file));
+}
+// 取り込んだファイルのうち、利用側のインデックスで実行権限が落ちているものを案内する。
+// core.filemode=false の作業ツリー（Windows）では、コピーしたファイルを add すると実行権限が付かない
+function noteExecutables(clone, dest) {
+  if (tracksFileMode(root)) return;
+  const kept = new Set(executables(root, dest));
+  const missing = executables(clone).filter((file) => !kept.has(file)).map((file) => `${dest}/${file}`);
+  if (missing.length === 0) return;
+  printList('実行権限が必要なファイル（この作業ツリーでは実行権限がコピーされません。コミット前に git add --chmod=+x してください）',
+    missing.map((file) => `  ${file}`));
+  console.log(`  git add --chmod=+x -- ${missing.join(' ')}`);
+}
+
 // base の上に置き場所の現状を積んだコミット（利用側の改変）を作る
 function localCommit(clone, base, dest) {
   git(['checkout', '--quiet', '--force', '--detach', base], clone);
@@ -125,6 +148,11 @@ function localCommit(clone, base, dest) {
     cpSync(path.join(root, dest, file), path.join(clone, file));
   }
   git(['add', '-A', '-f', '.'], clone);
+  // ファイルシステムで実行権限を扱えないときは、利用側のインデックスの実行権限を写す（無いと全部「変更」に見える）
+  if (!tracksFileMode(clone)) {
+    const marked = executables(root, dest).filter((file) => existsSync(path.join(clone, file)));
+    if (marked.length > 0) git(['update-index', '--chmod=+x', '--', ...marked], clone);
+  }
   git(['commit', '--quiet', '--allow-empty', '--no-verify', '-m', 'local'], clone);
   return git(['rev-parse', 'HEAD'], clone).out.trim();
 }
@@ -162,6 +190,7 @@ try {
     record.imports.push({dest, repo: options.repo, path: sub, commit, tag: tagOf(clone, commit)});
     saveRecord();
     console.log(`${dest}: ${options.repo} ${sub ? `の ${sub}/ ` : ''}を ${commit.slice(0, 7)} で取り込みました`);
+    noteExecutables(clone, dest);
   }
 
   if (command === 'status') {
@@ -236,6 +265,7 @@ try {
       entry.tag = tagOf(clone, to);
       saveRecord();
       console.log(`\n${entry.dest}: ${from.slice(0, 7)} → ${to.slice(0, 7)} に取り込み直しました。差分は git diff で確かめてください`);
+      noteExecutables(clone, entry.dest);
       if (conflicts.length > 0) process.exitCode = 1;
     }
   }
