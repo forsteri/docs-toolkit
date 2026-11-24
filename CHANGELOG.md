@@ -4,8 +4,11 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-24
+
 ### 追加
 
+- `verified.json`・README の表に、2026-11-24 の確認済みの組み合わせを追加。各テンプレートの Windows 対応と diagrams の htmlLabels 修正を docs-toolkit-sample に取り込み直し、Windows 11 で全形式の生成を確かめた。確認したコミットに、pandoc-template・docusaurus-template・one-pager は `v0.1.1`、marp-theme・slidev-theme・diagrams は `v0.2.1` のタグを打った。
 - `brand/presets/blue.css`・`blue.dark.css`: 青系のプリセット。デジタル庁デザインシステムのデザイントークン（@digital-go-jp/design-tokens 2.1.0、MIT）の色を役割名に割り当て、主色・文字・罫線・面・注記の状態色・系列色1・Night・Docusaurus のダークまで揃えた。
 - `brand/contrast.mjs`: 当てたあとのトークンブロックで、文字と背景のコントラスト比（文字 4.5、部品 3）を確かめる。Docusaurus はダークも見る。
 - `scripts/check.mjs`: 既定値とプリセットのコントラスト、プリセットを当てたあとの各テンプレートの手順と検査、淡い主色での陰性対照を検査する。
