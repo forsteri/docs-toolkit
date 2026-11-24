@@ -135,4 +135,6 @@ node ../docs-toolkit/scripts/import.mjs update tools/pandoc-template --to f31adc
 
 2026-10-30 には、ブランド面の対応（docs-toolkit a721c8b）を `update brand --to a721c8b` で取り込み直した。`README.md` は差し替わり、`tokens.css` は上流の既定値の追加と Hakobi の値が競合として一覧に出た。Hakobi の値を残して当て直すと全テンプレートで違いが無く、記録は docs-toolkit-sample 535bf26 になった。
 
+2026-11-24 には、Windows 11 で7つの置き場所すべてを各取り込み元の main へ取り込み直した。競合は、Docusaurus の `src/css/custom.css`（ダークの派生色）と、Slidev の `brand:sync` の生成物の2つだった。どちらも取り込み元の版にしてから `apply.mjs`・`brand:derive`・`brand:sync` で当て直せば解消した。記録は docs-toolkit-sample 055a7c0 になった。Windows でも `import.mjs` の追加・状態確認・取り込み直しが同じように動くことを確かめた（実行権限の扱いは上の「取り込む」を参照）。
+
 追加・変更・削除・移動・競合・撤回の組み合わせは `node scripts/test-import.mjs` で再現でき、`scripts/check.mjs` からも実行されます。

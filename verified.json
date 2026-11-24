@@ -2,6 +2,52 @@
   "description": "docs-toolkit-sample で確認した組み合わせ。新しいものを先頭に足す。commit が正本で、tag は目印",
   "sets": [
     {
+      "verified": "2026-11-24",
+      "note": "Windows 対応（全形式の生成・検査、import.mjs の実行権限）、diagrams の htmlLabels 修正、日本語フォントの選択、Docusaurus のダークの info を取り込んだ版。docs-toolkit-sample で全置き場所を import.mjs update で取り込み直し、Windows 11 で README の生成手順（Slidev の PDF 出力を含む）がすべて通ることを確認",
+      "sample": {
+        "repo": "https://github.com/forsteri/docs-toolkit-sample.git",
+        "commit": "055a7c023188b826bfc115fbfb3f318e194dd247"
+      },
+      "repos": {
+        "pandoc-template": {
+          "repo": "https://github.com/forsteri/pandoc-template.git",
+          "commit": "cae01f290b9f64da26057c125d8decf08c6a62a9",
+          "tag": "v0.1.1"
+        },
+        "docusaurus-template": {
+          "repo": "https://github.com/forsteri/docusaurus-template.git",
+          "commit": "b1b0570bc7f79a0cc8d3f18d314aac7c088e4124",
+          "tag": "v0.1.1"
+        },
+        "one-pager": {
+          "repo": "https://github.com/forsteri/one-pager.git",
+          "commit": "3659552752fb1fdc6879874093216c45ef809648",
+          "tag": "v0.1.1"
+        },
+        "marp-theme": {
+          "repo": "https://github.com/forsteri/marp-theme.git",
+          "commit": "5000a15852ab9c541ded3a8964ee1dd3ae7a0e35",
+          "tag": "v0.2.1"
+        },
+        "slidev-theme": {
+          "repo": "https://github.com/forsteri/slidev-theme.git",
+          "commit": "a75003251d5c4318dab924ece9e5252f1cb0224f",
+          "tag": "v0.2.1"
+        },
+        "diagrams": {
+          "repo": "https://github.com/forsteri/diagrams.git",
+          "commit": "ac45a96e96d6807b3c70837c73196d4c37a5ccb1",
+          "tag": "v0.2.1"
+        },
+        "docs-toolkit": {
+          "repo": "https://github.com/forsteri/docs-toolkit.git",
+          "path": "brand",
+          "commit": "764d207c9d3dbfa76d61c859b0994c3170b87b39",
+          "tag": null
+        }
+      }
+    },
+    {
       "verified": "2026-10-30",
       "note": "ブランド面の対応（系列色1・Night・accent-strong の既定値）後の版。サンプルの brand/ を import.mjs update で docs-toolkit の brand/ に取り込み直し、当て直しても全テンプレートで差分が無いことを確認",
       "sample": {
