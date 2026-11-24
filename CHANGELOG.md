@@ -4,6 +4,10 @@ docs-toolkit（ドキュメントツールキット）の変更履歴です。
 
 ## [Unreleased]
 
+### 追加
+
+- `verified.json`・README の表に、2026-11-25 の確認済みの組み合わせを追加。slidev-theme の修正（箇条書きの記号を戻し、Process の番号を黒文字にする）を docs-toolkit-sample に取り込み直して確かめ、slidev-theme の d5141ba に `v0.2.2` のタグを打った。ほかのリポジトリは 2026-11-24 と同じ。
+
 ## [0.3.0] - 2026-11-24
 
 ### 追加
